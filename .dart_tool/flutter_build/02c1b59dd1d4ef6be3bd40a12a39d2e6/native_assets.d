@@ -1,0 +1,1 @@
+ /Users/kagiso/Desktop/funding/.dart_tool/flutter_build/02c1b59dd1d4ef6be3bd40a12a39d2e6/native_assets.yaml: 

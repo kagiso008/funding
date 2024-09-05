@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:funding/pages/homepage.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 class EnterMarksPage extends StatefulWidget {
   const EnterMarksPage({super.key});
@@ -14,7 +15,7 @@ class _EnterMarksPageState extends State<EnterMarksPage> {
   String _selectedSubject1 = 'Accounting';
   String _selectedSubject2 = 'Accounting';
   String _selectedSubject3 = 'Accounting';
-  String _selectedSubject4 = 'Accounting';
+  String _selectedSubject4 = 'Afrikaans';
 
   int _mathMark = 0;
   int _englishMark = 0;
@@ -51,6 +52,21 @@ class _EnterMarksPageState extends State<EnterMarksPage> {
     'Religion Studies',
     'Tourism',
     'Visual Arts',
+    'None'
+  ];
+
+  final List<String> _subjects2 = [
+    'Sepedi',
+    'Sesotho',
+    'Setswana',
+    'siSwati',
+    'Tshivenda',
+    'Xitsonga',
+    'Afrikaans',
+    'English',
+    'isiNdebele',
+    'isiXhosa',
+    'isiZulu',
   ];
 
   List<DropdownMenuItem<int>> _getMarkDropdownItems() {
@@ -59,6 +75,55 @@ class _EnterMarksPageState extends State<EnterMarksPage> {
       items.add(DropdownMenuItem(value: i, child: Text(i.toString())));
     }
     return items;
+  }
+
+  double _calculateAverage() {
+    int totalMarks = _mathMark +
+        _englishMark +
+        _subject1Mark +
+        _subject2Mark +
+        _subject3Mark +
+        _subject4Mark +
+        _lifeOrientationMark;
+
+    return totalMarks / 7;
+  }
+
+  Future<void> _saveMarks() async {
+    final user = Supabase.instance.client.auth.currentUser;
+    if (user == null) {
+      // Handle case where the user is not logged in
+      print('User is not logged in.');
+      return;
+    }
+
+    // Calculate the average mark
+    final averageMark = _calculateAverage();
+
+    final response = await Supabase.instance.client.from('user_marks').upsert({
+      'user_id': user.id,
+      'math_mark': _mathMark,
+      'english_mark': _englishMark,
+      'subject1_mark': _subject1Mark,
+      'subject2_mark': _subject2Mark,
+      'subject3_mark': _subject3Mark,
+      'subject4_mark': _subject4Mark,
+      'life_orientation_mark': _lifeOrientationMark,
+      'average': averageMark,
+    });
+
+    // Check if response is null
+    if (response == null) {
+      print('Error: Response is null');
+      return;
+    }
+
+    // Check for error in response
+    if (response.error != null) {
+      print('Error saving marks: ${response.error!.message}');
+    } else {
+      print('Marks saved successfully');
+    }
   }
 
   @override
@@ -203,7 +268,7 @@ class _EnterMarksPageState extends State<EnterMarksPage> {
             _buildDropdownField(
               label: 'Subject 4',
               value: _selectedSubject4,
-              items: _subjects,
+              items: _subjects2,
               onChanged: (value) {
                 setState(() {
                   _selectedSubject4 = value!;
@@ -233,39 +298,52 @@ class _EnterMarksPageState extends State<EnterMarksPage> {
             ),
             const SizedBox(height: 20.0),
             Center(
-              child: ElevatedButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => Homepage(
-                        minMathMark: _mathMark.toDouble(),
-                        minEnglishMark: _englishMark.toDouble(),
-                        minPhysicsMark: _subject4Mark.toDouble(),
-                        minAccountingMark: _subject1Mark.toDouble(),
-                        minLifeOrientationMark: _lifeOrientationMark.toDouble(),
-                        minChemistryMark: _subject2Mark.toDouble(),
-                        minHistoryMark: _subject3Mark.toDouble(),
+              child: Column(
+                children: [
+                  ElevatedButton(
+                    onPressed: () {
+                      _saveMarks().then((_) {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => Homepage(
+                              minAverageMark: _calculateAverage().toInt(),
+                              minMathMark: _mathMark,
+                              minPhysicsMark: _subject1Mark,
+                              minAccountingMark: _subject2Mark,
+                              minEnglishMark: _englishMark,
+                            ),
+                          ),
+                        );
+                      });
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.teal,
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 40.0, vertical: 20.0),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20.0),
                       ),
                     ),
-                  );
-                },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.teal,
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: 40.0, vertical: 20.0),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20.0),
+                    child: const Text(
+                      "View Scholarships",
+                      style: TextStyle(
+                        fontSize: 18.0,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                      ),
+                    ),
                   ),
-                ),
-                child: const Text(
-                  "View Scholarships",
-                  style: TextStyle(
-                    fontSize: 18.0,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
+                  const SizedBox(height: 20.0),
+                  Text(
+                    "Average Mark: ${_calculateAverage().toStringAsFixed(2)}",
+                    style: const TextStyle(
+                      fontSize: 18.0,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.teal,
+                    ),
                   ),
-                ),
+                ],
               ),
             ),
           ],

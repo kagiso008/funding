@@ -6,23 +6,19 @@ import 'dart:io';
 import 'package:csv/csv.dart';
 
 class Homepage extends StatefulWidget {
-  final double minMathMark;
-  final double minPhysicsMark;
-  final double minAccountingMark;
-  final double minEnglishMark;
-  final double minLifeOrientationMark;
-  final double minChemistryMark;
-  final double minHistoryMark;
+  final int minAverageMark;
+  final int minMathMark;
+  final int minPhysicsMark;
+  final int minAccountingMark;
+  final int minEnglishMark;
 
   const Homepage({
     super.key,
+    required this.minAverageMark,
     required this.minMathMark,
     required this.minPhysicsMark,
     required this.minAccountingMark,
     required this.minEnglishMark,
-    required this.minLifeOrientationMark,
-    required this.minChemistryMark,
-    required this.minHistoryMark,
   });
 
   @override
@@ -67,17 +63,17 @@ class _HomepageState extends State<Homepage> {
     return _supabaseClient
         .from('scholarships')
         .select()
-        .gte('mathematics', 100 - widget.minMathMark)
-        .gte('physics', 100 - widget.minPhysicsMark)
-        .gte('accounting', 100 - widget.minAccountingMark)
-        .gte('english', 100 - widget.minEnglishMark)
-        .gte('biology', 100 - widget.minLifeOrientationMark) // New subject
-        .gte('chemistry', 100 - widget.minChemistryMark) // New subject
-        .gte('history', 100 - widget.minHistoryMark) // New subject
+        .lte('average', widget.minAverageMark)
+        .lte('mathematics', widget.minMathMark)
+        .lte('physics', widget.minPhysicsMark)
+        .lte('accounting', widget.minAccountingMark)
+        .lte('english', widget.minEnglishMark)
         .asStream()
-        .map((response) => (response as List<dynamic>)
-            .map((e) => e as Map<String, dynamic>)
-            .toList());
+        .map((response) {
+      return (response as List<dynamic>)
+          .map((e) => e as Map<String, dynamic>)
+          .toList();
+    });
   }
 
   Future<void> _pickAndUploadCSV() async {

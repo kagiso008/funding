@@ -117,6 +117,121 @@ class _HomepageState extends State<Homepage> {
     }
   }
 
+  void _showAddScholarshipDialog() {
+    String scholarshipName = '';
+    String scholarshipURL = '';
+    int average = 0;
+    int mathematics = 0;
+    int physics = 0;
+    int accounting = 0;
+    int english = 0;
+
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text("Add New Scholarship"),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              TextFormField(
+                decoration:
+                    const InputDecoration(labelText: 'Scholarship Name'),
+                onChanged: (value) {
+                  scholarshipName = value;
+                },
+              ),
+              TextFormField(
+                decoration: const InputDecoration(labelText: 'Scholarship URL'),
+                onChanged: (value) {
+                  scholarshipURL = value;
+                },
+              ),
+              TextFormField(
+                decoration: const InputDecoration(labelText: 'Average'),
+                keyboardType: TextInputType.number,
+                onChanged: (value) {
+                  average = int.tryParse(value) ?? 0;
+                },
+              ),
+              TextFormField(
+                decoration: const InputDecoration(labelText: 'Mathematics'),
+                keyboardType: TextInputType.number,
+                onChanged: (value) {
+                  mathematics = int.tryParse(value) ?? 0;
+                },
+              ),
+              TextFormField(
+                decoration: const InputDecoration(labelText: 'Physics'),
+                keyboardType: TextInputType.number,
+                onChanged: (value) {
+                  physics = int.tryParse(value) ?? 0;
+                },
+              ),
+              TextFormField(
+                decoration: const InputDecoration(labelText: 'Accounting'),
+                keyboardType: TextInputType.number,
+                onChanged: (value) {
+                  accounting = int.tryParse(value) ?? 0;
+                },
+              ),
+              TextFormField(
+                decoration: const InputDecoration(labelText: 'English'),
+                keyboardType: TextInputType.number,
+                onChanged: (value) {
+                  english = int.tryParse(value) ?? 0;
+                },
+              ),
+            ],
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: const Text("Cancel"),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            TextButton(
+              child: const Text("Save"),
+              onPressed: () {
+                if (scholarshipName.isNotEmpty && scholarshipURL.isNotEmpty) {
+                  _addScholarship(scholarshipName, scholarshipURL, average,
+                      mathematics, physics, accounting, english);
+                }
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  Future<void> _addScholarship(String name, String url, int average,
+      int mathematics, int physics, int accounting, int english) async {
+    final response = await _supabaseClient.from('scholarships').insert({
+      'scholarships': name,
+      'scholarship_url': url,
+      'average': average,
+      'mathematics': mathematics,
+      'physics': physics,
+      'accounting': accounting,
+      'english': english,
+    });
+
+    if (response.error == null) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Scholarship added successfully!')),
+      );
+
+      setState(() {});
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Error: ${response.error!.message}')),
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -129,6 +244,10 @@ class _HomepageState extends State<Homepage> {
           IconButton(
             icon: const Icon(Icons.upload_file),
             onPressed: _pickAndUploadCSV,
+          ),
+          IconButton(
+            icon: const Icon(Icons.add),
+            onPressed: _showAddScholarshipDialog,
           ),
         ],
       ),

@@ -87,7 +87,10 @@ class _LoginPageState extends State<LoginPage> {
       body: ListView(
         padding: const EdgeInsets.symmetric(vertical: 18, horizontal: 12),
         children: [
-          const Text('Sign in via email link'),
+          const Text(
+            'Sign in via email link',
+            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+          ),
           const SizedBox(height: 18),
           TextFormField(
             controller: _emailController,
@@ -96,6 +99,14 @@ class _LoginPageState extends State<LoginPage> {
           const SizedBox(height: 18),
           ElevatedButton(
             onPressed: _isLoading ? null : _signIn,
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Colors.teal,
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 40.0, vertical: 20.0),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(20.0),
+              ),
+            ),
             child: Text(_isLoading ? 'Sending...' : 'Send Email with Link'),
           ),
         ],

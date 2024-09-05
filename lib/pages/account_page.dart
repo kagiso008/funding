@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
-import 'package:funding/main.dart';
 import 'package:funding/pages/login_page.dart';
 import 'package:funding/pages/inputpage.dart';
+import 'package:funding/main.dart';
 
 class AccountPage extends StatefulWidget {
   const AccountPage({super.key});
@@ -18,7 +18,20 @@ class _AccountPageState extends State<AccountPage> {
 
   var _loading = true;
 
-  /// Called once a user id is received within `onAuthenticated()`
+  @override
+  void initState() {
+    super.initState();
+    _getProfile();
+  }
+
+  @override
+  void dispose() {
+    _firstNameController.dispose();
+    _lastNameController.dispose();
+    _phoneNumberController.dispose();
+    super.dispose();
+  }
+
   Future<void> _getProfile() async {
     setState(() {
       _loading = true;
@@ -46,7 +59,6 @@ class _AccountPageState extends State<AccountPage> {
     }
   }
 
-  /// Called when user taps `Update` button
   Future<void> _updateProfile() async {
     setState(() {
       _loading = true;
@@ -77,7 +89,6 @@ class _AccountPageState extends State<AccountPage> {
         setState(() {
           _loading = false;
         });
-        // Navigate to the homepage after updating the profile
         Navigator.push(
           context,
           MaterialPageRoute(builder: (context) => const EnterMarksPage()),
@@ -105,48 +116,67 @@ class _AccountPageState extends State<AccountPage> {
   }
 
   @override
-  void initState() {
-    super.initState();
-    _getProfile();
-  }
-
-  @override
-  void dispose() {
-    _firstNameController.dispose();
-    _lastNameController.dispose();
-    _phoneNumberController.dispose();
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Profile')),
-      body: ListView(
-        padding: const EdgeInsets.symmetric(vertical: 18, horizontal: 12),
-        children: [
-          TextFormField(
-            controller: _firstNameController,
-            decoration: const InputDecoration(labelText: 'First Name'),
-          ),
-          const SizedBox(height: 18),
-          TextFormField(
-            controller: _lastNameController,
-            decoration: const InputDecoration(labelText: 'Last Name'),
-          ),
-          const SizedBox(height: 18),
-          TextFormField(
-            controller: _phoneNumberController,
-            decoration: const InputDecoration(labelText: 'Phone Number'),
-          ),
-          const SizedBox(height: 18),
-          ElevatedButton(
-            onPressed: _loading ? null : _updateProfile,
-            child: Text(_loading ? 'Saving...' : 'Next'),
-          ),
-          const SizedBox(height: 18),
-          TextButton(onPressed: _signOut, child: const Text('Sign Out')),
-        ],
+      appBar: AppBar(
+        title: const Text('Profile'),
+        backgroundColor: Colors.teal, // Match the Homepage color
+        centerTitle: true,
+        elevation: 0,
+      ),
+      body: Container(
+        padding: const EdgeInsets.all(16.0),
+        color: Colors.grey[100], // Match the Homepage color
+        child: ListView(
+          children: [
+            TextFormField(
+              controller: _firstNameController,
+              decoration: const InputDecoration(
+                labelText: 'First Name',
+                border: OutlineInputBorder(),
+              ),
+            ),
+            const SizedBox(height: 16),
+            TextFormField(
+              controller: _lastNameController,
+              decoration: const InputDecoration(
+                labelText: 'Last Name',
+                border: OutlineInputBorder(),
+              ),
+            ),
+            const SizedBox(height: 16),
+            TextFormField(
+              controller: _phoneNumberController,
+              decoration: const InputDecoration(
+                labelText: 'Phone Number',
+                border: OutlineInputBorder(),
+              ),
+            ),
+            const SizedBox(height: 24),
+            ElevatedButton(
+              onPressed: _loading ? null : _updateProfile,
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.teal,
+                padding: const EdgeInsets.symmetric(vertical: 16),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12),
+                ),
+              ),
+              child: Text(
+                _loading ? 'Saving...' : 'Save Changes',
+                style: const TextStyle(fontSize: 16),
+              ),
+            ),
+            const SizedBox(height: 16),
+            TextButton(
+              onPressed: _signOut,
+              style: TextButton.styleFrom(
+                foregroundColor: Colors.teal,
+              ),
+              child: const Text('Sign Out'),
+            ),
+          ],
+        ),
       ),
     );
   }

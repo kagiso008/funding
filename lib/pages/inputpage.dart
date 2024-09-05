@@ -45,8 +45,6 @@ class _EnterMarksPageState extends State<EnterMarksPage> {
     'Information Technology',
     'Life Sciences',
     'Mechanical Technology',
-    'Mathematics',
-    'Mathematical Literacy',
     'Music',
     'Physical Sciences',
     'Religion Studies',
@@ -90,41 +88,46 @@ class _EnterMarksPageState extends State<EnterMarksPage> {
   }
 
   Future<void> _saveMarks() async {
-    final user = Supabase.instance.client.auth.currentUser;
-    if (user == null) {
-      // Handle case where the user is not logged in
-      print('User is not logged in.');
-      return;
-    }
-
-    // Calculate the average mark
-    final averageMark = _calculateAverage();
-
-    final response = await Supabase.instance.client.from('user_marks').upsert({
-      'user_id': user.id,
-      'math_mark': _mathMark,
-      'english_mark': _englishMark,
-      'subject1_mark': _subject1Mark,
-      'subject2_mark': _subject2Mark,
-      'subject3_mark': _subject3Mark,
-      'subject4_mark': _subject4Mark,
-      'life_orientation_mark': _lifeOrientationMark,
-      'average': averageMark,
-    });
-
-    // Check if response is null
-    if (response == null) {
-      print('Error: Response is null');
-      return;
-    }
-
-    // Check for error in response
-    if (response.error != null) {
-      print('Error saving marks: ${response.error!.message}');
-    } else {
-      print('Marks saved successfully');
-    }
+  final user = Supabase.instance.client.auth.currentUser;
+  if (user == null) {
+    // Handle case where the user is not logged in
+    print('User is not logged in.');
+    return;
   }
+
+  // Calculate the average mark
+  final averageMark = _calculateAverage().toInt();
+
+  final response = await Supabase.instance.client.from('user_marks').upsert({
+    'user_id': user.id,
+    'math_mark': _mathMark,
+    'english_mark': _englishMark,
+    'subject1': _selectedSubject1,
+    'subject1_mark': _subject1Mark,
+    'subject2': _selectedSubject2,
+    'subject2_mark': _subject2Mark,
+    'subject3': _selectedSubject3,
+    'subject3_mark': _subject3Mark,
+    'subject4': _selectedSubject4,
+    'subject4_mark': _subject4Mark,
+    'life_orientation_mark': _lifeOrientationMark,
+    'average': averageMark,
+  });
+
+  // Check if response is null
+  if (response == null) {
+    print('Error: Response is null');
+    return;
+  }
+
+  // Check for error in response
+  if (response.error != null) {
+    print('Error saving marks: ${response.error!.message}');
+  } else {
+    print('Marks saved successfully');
+  }
+}
+
 
   @override
   Widget build(BuildContext context) {

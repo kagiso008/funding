@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:file_picker/file_picker.dart';
-import 'dart:io';
-import 'package:csv/csv.dart';
 
 class Homepage extends StatefulWidget {
   final int minAverageMark;
@@ -74,47 +71,6 @@ class _HomepageState extends State<Homepage> {
           .map((e) => e as Map<String, dynamic>)
           .toList();
     });
-  }
-
-  Future<void> _pickAndUploadCSV() async {
-    FilePickerResult? result = await FilePicker.platform.pickFiles(
-      type: FileType.custom,
-      allowedExtensions: ['csv'],
-    );
-
-    if (result != null) {
-      File file = File(result.files.single.path!);
-
-      final csvString = await file.readAsString();
-      List<List<dynamic>> csvTable =
-          const CsvToListConverter().convert(csvString);
-
-      for (var i = 1; i < csvTable.length; i++) {
-        Map<String, dynamic> row = {
-          'scholarships': csvTable[i][0],
-          'scholarship_url': csvTable[i][1]
-        };
-
-        final existingEntry = await _supabaseClient
-            .from('scholarships')
-            .select()
-            .eq('scholarships', row['scholarships'])
-            .eq('scholarship_url', row['scholarship_url'])
-            .maybeSingle();
-
-        if (existingEntry == null) {
-          await _supabaseClient.from('scholarships').insert(row);
-        }
-      }
-
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('CSV file processed successfully!')),
-      );
-    } else {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('File selection canceled.')),
-      );
-    }
   }
 
   void _showAddScholarshipDialog() {
@@ -241,10 +197,6 @@ class _HomepageState extends State<Homepage> {
         centerTitle: true,
         elevation: 0,
         actions: [
-          IconButton(
-            icon: const Icon(Icons.upload_file),
-            onPressed: _pickAndUploadCSV,
-          ),
           IconButton(
             icon: const Icon(Icons.add),
             onPressed: _showAddScholarshipDialog,

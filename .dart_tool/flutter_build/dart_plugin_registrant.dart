@@ -7,23 +7,31 @@
 
 import 'dart:io'; // flutter_ignore: dart_io_import.
 import 'package:file_picker/file_picker.dart';
+import 'package:open_file_android/open_file_android.dart';
 import 'package:path_provider_android/path_provider_android.dart';
 import 'package:shared_preferences_android/shared_preferences_android.dart';
 import 'package:url_launcher_android/url_launcher_android.dart';
 import 'package:file_picker/file_picker.dart';
+import 'package:open_file_ios/open_file_ios.dart';
 import 'package:path_provider_foundation/path_provider_foundation.dart';
+import 'package:pointer_interceptor_ios/pointer_interceptor_ios.dart';
 import 'package:shared_preferences_foundation/shared_preferences_foundation.dart';
 import 'package:url_launcher_ios/url_launcher_ios.dart';
 import 'package:app_links_linux/app_links_linux.dart';
 import 'package:file_picker/file_picker.dart';
+import 'package:flutter_keyboard_visibility_linux/flutter_keyboard_visibility_linux.dart';
 import 'package:path_provider_linux/path_provider_linux.dart';
 import 'package:shared_preferences_linux/shared_preferences_linux.dart';
 import 'package:url_launcher_linux/url_launcher_linux.dart';
 import 'package:file_picker/file_picker.dart';
+import 'package:flutter_keyboard_visibility_macos/flutter_keyboard_visibility_macos.dart';
+import 'package:open_file_mac/open_file_mac.dart';
 import 'package:path_provider_foundation/path_provider_foundation.dart';
 import 'package:shared_preferences_foundation/shared_preferences_foundation.dart';
 import 'package:url_launcher_macos/url_launcher_macos.dart';
 import 'package:file_picker/file_picker.dart';
+import 'package:flutter_keyboard_visibility_windows/flutter_keyboard_visibility_windows.dart';
+import 'package:open_file_windows/open_file_windows.dart';
 import 'package:path_provider_windows/path_provider_windows.dart';
 import 'package:shared_preferences_windows/shared_preferences_windows.dart';
 import 'package:url_launcher_windows/url_launcher_windows.dart';
@@ -39,6 +47,15 @@ class _PluginRegistrant {
       } catch (err) {
         print(
           '`file_picker` threw an error: $err. '
+          'The app may not function as expected until you remove this plugin from pubspec.yaml'
+        );
+      }
+
+      try {
+        OpenFileAndroid.registerWith();
+      } catch (err) {
+        print(
+          '`open_file_android` threw an error: $err. '
           'The app may not function as expected until you remove this plugin from pubspec.yaml'
         );
       }
@@ -81,10 +98,28 @@ class _PluginRegistrant {
       }
 
       try {
+        OpenFileIOS.registerWith();
+      } catch (err) {
+        print(
+          '`open_file_ios` threw an error: $err. '
+          'The app may not function as expected until you remove this plugin from pubspec.yaml'
+        );
+      }
+
+      try {
         PathProviderFoundation.registerWith();
       } catch (err) {
         print(
           '`path_provider_foundation` threw an error: $err. '
+          'The app may not function as expected until you remove this plugin from pubspec.yaml'
+        );
+      }
+
+      try {
+        PointerInterceptorIOS.registerWith();
+      } catch (err) {
+        print(
+          '`pointer_interceptor_ios` threw an error: $err. '
           'The app may not function as expected until you remove this plugin from pubspec.yaml'
         );
       }
@@ -127,6 +162,15 @@ class _PluginRegistrant {
       }
 
       try {
+        FlutterKeyboardVisibilityPluginLinux.registerWith();
+      } catch (err) {
+        print(
+          '`flutter_keyboard_visibility_linux` threw an error: $err. '
+          'The app may not function as expected until you remove this plugin from pubspec.yaml'
+        );
+      }
+
+      try {
         PathProviderLinux.registerWith();
       } catch (err) {
         print(
@@ -164,6 +208,24 @@ class _PluginRegistrant {
       }
 
       try {
+        FlutterKeyboardVisibilityPluginMacos.registerWith();
+      } catch (err) {
+        print(
+          '`flutter_keyboard_visibility_macos` threw an error: $err. '
+          'The app may not function as expected until you remove this plugin from pubspec.yaml'
+        );
+      }
+
+      try {
+        OpenFileMac.registerWith();
+      } catch (err) {
+        print(
+          '`open_file_mac` threw an error: $err. '
+          'The app may not function as expected until you remove this plugin from pubspec.yaml'
+        );
+      }
+
+      try {
         PathProviderFoundation.registerWith();
       } catch (err) {
         print(
@@ -196,6 +258,24 @@ class _PluginRegistrant {
       } catch (err) {
         print(
           '`file_picker` threw an error: $err. '
+          'The app may not function as expected until you remove this plugin from pubspec.yaml'
+        );
+      }
+
+      try {
+        FlutterKeyboardVisibilityPluginWindows.registerWith();
+      } catch (err) {
+        print(
+          '`flutter_keyboard_visibility_windows` threw an error: $err. '
+          'The app may not function as expected until you remove this plugin from pubspec.yaml'
+        );
+      }
+
+      try {
+        OpenFileWindows.registerWith();
+      } catch (err) {
+        print(
+          '`open_file_windows` threw an error: $err. '
           'The app may not function as expected until you remove this plugin from pubspec.yaml'
         );
       }

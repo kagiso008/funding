@@ -16,7 +16,7 @@ soup = BeautifulSoup(response.content, 'html.parser')
 bursaries = soup.find_all('h3')  # Adjust based on the actual HTML structure
 
 # Create a CSV file and write the header
-with open('bursaries.csv', mode='w', newline='', encoding='utf-8') as file:
+with open('sabursaries.csv', mode='w', newline='', encoding='utf-8') as file:
     writer = csv.writer(file)
     writer.writerow(['Bursary Title', 'Link'])
 

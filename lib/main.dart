@@ -57,3 +57,12 @@ extension ContextExtension on BuildContext {
     );
   }
 }
+
+/*// List of schools for predictive text
+  final List<String> _schools = [
+    'Reitumetse High School',
+    'prestige college',
+    'lesedi High',
+    'ayanda High School',
+    'curro Academy'
+  ];*/

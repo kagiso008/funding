@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:funding/pages/landing_page.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
-import 'package:funding/pages/account_page.dart';
-import 'package:funding/pages/login_page.dart';
 import 'package:flutter_web_plugins/url_strategy.dart';
 
 Future<void> main() async {
@@ -39,8 +38,8 @@ class MyApp extends StatelessWidget {
         ),
       ),
       home: supabase.auth.currentSession == null
-          ? const LoginPage()
-          : const AccountPage(),
+          ? const LandingPage()
+          : const LandingPage(),
     );
   }
 }
@@ -57,12 +56,3 @@ extension ContextExtension on BuildContext {
     );
   }
 }
-
-/*// List of schools for predictive text
-  final List<String> _schools = [
-    'Reitumetse High School',
-    'prestige college',
-    'lesedi High',
-    'ayanda High School',
-    'curro Academy'
-  ];*/

@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:funding/pages/analytics.dart';
+import 'package:funding/pages/APSPage.dart';
 import 'package:funding/pages/homepage.dart';
+import 'package:funding/pages/login_page.dart'; // Assuming you have a login page
+import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:funding/pages/analytics.dart';
+import 'package:funding/pages/past_papers.dart';
 
 class LandingPage extends StatelessWidget {
-  const LandingPage({Key? key}) : super(key: key);
+  const LandingPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -28,11 +32,23 @@ class LandingPage extends StatelessWidget {
               ),
               const SizedBox(height: 30),
 
-              // Illustration image or logo
-
               // Button to View Scholarships
               _buildCustomButton(
                 label: 'View Scholarships',
+                icon: Icons.school_outlined,
+                color: Colors.teal,
+                onPressed: () {
+                  // Navigate to Homepage
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(builder: (context) => const Homepage()),
+                  );
+                },
+              ),
+
+              const SizedBox(height: 50),
+              _buildCustomButton(
+                label: 'View Analytics',
                 icon: Icons.school_outlined,
                 color: Colors.teal,
                 onPressed: () {
@@ -44,20 +60,42 @@ class LandingPage extends StatelessWidget {
                   );
                 },
               ),
-              const SizedBox(height: 20),
-
-              // Button to View Analytics
+              const SizedBox(height: 50),
               _buildCustomButton(
-                label: 'View Analytics',
-                icon: Icons.analytics_outlined,
-                color: Colors.orangeAccent,
+                label: 'calculate APS',
+                icon: Icons.calculate,
+                color: Colors.teal,
                 onPressed: () {
-                  // Navigate to Analytics Page
+                  // Navigate to Homepage
                   Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => const AnalyticsPage()),
+                        builder: (context) => const UniversityLandingPage()),
                   );
+                },
+              ),
+              const SizedBox(height: 50),
+              _buildCustomButton(
+                label: 'Past Papers',
+                icon: Icons.calculate,
+                color: Colors.teal,
+                onPressed: () {
+                  // Navigate to Homepage
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(builder: (context) => const PastPapers()),
+                  );
+                },
+              ),
+              const SizedBox(height: 50),
+
+              // Button to Sign Out
+              _buildCustomButton(
+                label: 'Sign Out',
+                icon: Icons.logout,
+                color: Colors.redAccent,
+                onPressed: () async {
+                  await _signOut(context); // Call the _signOut method
                 },
               ),
             ],
@@ -65,6 +103,29 @@ class LandingPage extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  // Sign out method
+  Future<void> _signOut(BuildContext context) async {
+    try {
+      await Supabase.instance.client.auth.signOut(); // Sign out from Supabase
+      // Navigate to login page after successful sign out
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (_) => const LoginPage()),
+      );
+    } on AuthException catch (error) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text(error.message), backgroundColor: Colors.red),
+      );
+    } catch (error) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Unexpected error occurred'),
+          backgroundColor: Colors.red,
+        ),
+      );
+    }
   }
 
   // Custom Button Widget

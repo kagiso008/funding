@@ -74,6 +74,12 @@
       "languageVersion": "2.18"
     },
     {
+      "name": "convert",
+      "rootUri": "file:///Users/kagiso/.pub-cache/hosted/pub.dev/convert-3.1.1",
+      "packageUri": "lib/",
+      "languageVersion": "2.18"
+    },
+    {
       "name": "cross_file",
       "rootUri": "file:///Users/kagiso/.pub-cache/hosted/pub.dev/cross_file-0.3.4+2",
       "packageUri": "lib/",
@@ -98,6 +104,30 @@
       "languageVersion": "3.1"
     },
     {
+      "name": "device_info_plus",
+      "rootUri": "file:///Users/kagiso/.pub-cache/hosted/pub.dev/device_info_plus-10.1.2",
+      "packageUri": "lib/",
+      "languageVersion": "3.3"
+    },
+    {
+      "name": "device_info_plus_platform_interface",
+      "rootUri": "file:///Users/kagiso/.pub-cache/hosted/pub.dev/device_info_plus_platform_interface-7.0.1",
+      "packageUri": "lib/",
+      "languageVersion": "2.18"
+    },
+    {
+      "name": "dio",
+      "rootUri": "file:///Users/kagiso/.pub-cache/hosted/pub.dev/dio-5.7.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.18"
+    },
+    {
+      "name": "dio_web_adapter",
+      "rootUri": "file:///Users/kagiso/.pub-cache/hosted/pub.dev/dio_web_adapter-2.0.0",
+      "packageUri": "lib/",
+      "languageVersion": "3.3"
+    },
+    {
       "name": "fake_async",
       "rootUri": "file:///Users/kagiso/.pub-cache/hosted/pub.dev/fake_async-1.3.1",
       "packageUri": "lib/",
@@ -120,6 +150,12 @@
       "rootUri": "file:///Users/kagiso/.pub-cache/hosted/pub.dev/file_picker-8.1.2",
       "packageUri": "lib/",
       "languageVersion": "3.4"
+    },
+    {
+      "name": "fixnum",
+      "rootUri": "file:///Users/kagiso/.pub-cache/hosted/pub.dev/fixnum-1.1.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.19"
     },
     {
       "name": "flutter",
@@ -168,6 +204,12 @@
       "rootUri": "file:///Users/kagiso/.pub-cache/hosted/pub.dev/flutter_lints-3.0.2",
       "packageUri": "lib/",
       "languageVersion": "3.1"
+    },
+    {
+      "name": "flutter_pdfview",
+      "rootUri": "file:///Users/kagiso/.pub-cache/hosted/pub.dev/flutter_pdfview-1.3.2",
+      "packageUri": "lib/",
+      "languageVersion": "2.17"
     },
     {
       "name": "flutter_plugin_android_lifecycle",
@@ -228,6 +270,18 @@
       "rootUri": "file:///Users/kagiso/.pub-cache/hosted/pub.dev/image-4.2.0",
       "packageUri": "lib/",
       "languageVersion": "2.15"
+    },
+    {
+      "name": "intl",
+      "rootUri": "file:///Users/kagiso/.pub-cache/hosted/pub.dev/intl-0.19.0",
+      "packageUri": "lib/",
+      "languageVersion": "3.0"
+    },
+    {
+      "name": "js",
+      "rootUri": "file:///Users/kagiso/.pub-cache/hosted/pub.dev/js-0.7.1",
+      "packageUri": "lib/",
+      "languageVersion": "3.1"
     },
     {
       "name": "jwt_decode",
@@ -512,6 +566,12 @@
       "languageVersion": "2.18"
     },
     {
+      "name": "sprintf",
+      "rootUri": "file:///Users/kagiso/.pub-cache/hosted/pub.dev/sprintf-7.0.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
       "name": "stack_trace",
       "rootUri": "file:///Users/kagiso/.pub-cache/hosted/pub.dev/stack_trace-1.11.1",
       "packageUri": "lib/",
@@ -546,6 +606,54 @@
       "rootUri": "file:///Users/kagiso/.pub-cache/hosted/pub.dev/supabase_flutter-2.6.0",
       "packageUri": "lib/",
       "languageVersion": "3.0"
+    },
+    {
+      "name": "syncfusion_flutter_core",
+      "rootUri": "file:///Users/kagiso/.pub-cache/hosted/pub.dev/syncfusion_flutter_core-26.2.14",
+      "packageUri": "lib/",
+      "languageVersion": "2.17"
+    },
+    {
+      "name": "syncfusion_flutter_pdf",
+      "rootUri": "file:///Users/kagiso/.pub-cache/hosted/pub.dev/syncfusion_flutter_pdf-26.2.14",
+      "packageUri": "lib/",
+      "languageVersion": "2.17"
+    },
+    {
+      "name": "syncfusion_flutter_pdfviewer",
+      "rootUri": "file:///Users/kagiso/.pub-cache/hosted/pub.dev/syncfusion_flutter_pdfviewer-26.2.14",
+      "packageUri": "lib/",
+      "languageVersion": "2.17"
+    },
+    {
+      "name": "syncfusion_flutter_signaturepad",
+      "rootUri": "file:///Users/kagiso/.pub-cache/hosted/pub.dev/syncfusion_flutter_signaturepad-26.2.14",
+      "packageUri": "lib/",
+      "languageVersion": "2.17"
+    },
+    {
+      "name": "syncfusion_pdfviewer_macos",
+      "rootUri": "file:///Users/kagiso/.pub-cache/hosted/pub.dev/syncfusion_pdfviewer_macos-26.2.14",
+      "packageUri": "lib/",
+      "languageVersion": "2.17"
+    },
+    {
+      "name": "syncfusion_pdfviewer_platform_interface",
+      "rootUri": "file:///Users/kagiso/.pub-cache/hosted/pub.dev/syncfusion_pdfviewer_platform_interface-26.2.14",
+      "packageUri": "lib/",
+      "languageVersion": "2.17"
+    },
+    {
+      "name": "syncfusion_pdfviewer_web",
+      "rootUri": "file:///Users/kagiso/.pub-cache/hosted/pub.dev/syncfusion_pdfviewer_web-26.2.14",
+      "packageUri": "lib/",
+      "languageVersion": "2.17"
+    },
+    {
+      "name": "syncfusion_pdfviewer_windows",
+      "rootUri": "file:///Users/kagiso/.pub-cache/hosted/pub.dev/syncfusion_pdfviewer_windows-26.2.14",
+      "packageUri": "lib/",
+      "languageVersion": "2.17"
     },
     {
       "name": "term_glyph",
@@ -614,6 +722,12 @@
       "languageVersion": "3.2"
     },
     {
+      "name": "uuid",
+      "rootUri": "file:///Users/kagiso/.pub-cache/hosted/pub.dev/uuid-4.5.0",
+      "packageUri": "lib/",
+      "languageVersion": "3.0"
+    },
+    {
       "name": "vector_math",
       "rootUri": "file:///Users/kagiso/.pub-cache/hosted/pub.dev/vector_math-2.1.4",
       "packageUri": "lib/",
@@ -650,6 +764,12 @@
       "languageVersion": "3.4"
     },
     {
+      "name": "win32_registry",
+      "rootUri": "file:///Users/kagiso/.pub-cache/hosted/pub.dev/win32_registry-1.1.5",
+      "packageUri": "lib/",
+      "languageVersion": "3.4"
+    },
+    {
       "name": "xdg_directories",
       "rootUri": "file:///Users/kagiso/.pub-cache/hosted/pub.dev/xdg_directories-1.0.4",
       "packageUri": "lib/",
@@ -674,7 +794,7 @@
       "languageVersion": "3.4"
     }
   ],
-  "generated": "2024-09-11T11:30:46.657654Z",
+  "generated": "2024-09-18T07:27:53.196244Z",
   "generator": "pub",
   "generatorVersion": "3.4.4",
   "flutterRoot": "file:///Users/kagiso/flutter",

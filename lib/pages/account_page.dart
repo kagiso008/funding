@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
-import 'package:funding/pages/login_page.dart';
 import 'package:funding/pages/inputpage.dart';
 import 'package:funding/pages/verification_page.dart'; // Import the new VerificationPage
 import 'package:funding/main.dart';
-import 'package:flutter_typeahead/flutter_typeahead.dart';
+import 'package:funding/lists/schools.dart';
 
 class AccountPage extends StatefulWidget {
   const AccountPage({super.key});
@@ -18,7 +17,7 @@ class _AccountPageState extends State<AccountPage> {
   final _lastNameController = TextEditingController();
   final _phoneNumberController = TextEditingController();
   final _passwordController = TextEditingController();
-  final _schoolController = TextEditingController();
+  final TextEditingController _schoolController = TextEditingController();
 
   String? _selectedAreaCode = '+27'; // Default area code
   String? _selectedDay;
@@ -27,15 +26,6 @@ class _AccountPageState extends State<AccountPage> {
   String? _selectedGrade;
   String? _selectedSchool;
   var _loading = true;
-
-  // List of schools for predictive text
-  final List<String> _schools = [
-    'Reitumetse High School',
-    'Prestige College',
-    'Lesedi High',
-    'Ayanda High School',
-    'Curro Academy'
-  ];
 
   @override
   void initState() {
@@ -135,24 +125,6 @@ class _AccountPageState extends State<AccountPage> {
         Navigator.push(
           context,
           MaterialPageRoute(builder: (context) => const EnterMarksPage()),
-        );
-      }
-    }
-  }
-
-  Future<void> _signOut() async {
-    try {
-      await supabase.auth.signOut();
-    } on AuthException catch (error) {
-      if (mounted) context.showSnackBar(error.message, isError: true);
-    } catch (error) {
-      if (mounted) {
-        context.showSnackBar('Unexpected error occurred', isError: true);
-      }
-    } finally {
-      if (mounted) {
-        Navigator.of(context).pushReplacement(
-          MaterialPageRoute(builder: (_) => const LoginPage()),
         );
       }
     }
@@ -334,29 +306,25 @@ class _AccountPageState extends State<AccountPage> {
             const SizedBox(height: 30),
             Autocomplete<String>(
               optionsBuilder: (TextEditingValue textEditingValue) {
-                // If user input is empty, return all schools
                 if (textEditingValue.text.isEmpty) {
                   return const Iterable<String>.empty();
                 }
 
-                // Filter the schools list based on user input
-                return _schools.where((String option) {
+                // Use the 'schools' variable imported from 'schools.dart'
+                return schools.where((String option) {
                   return option
                       .toLowerCase()
                       .contains(textEditingValue.text.toLowerCase());
                 });
               },
-              displayStringForOption: (String option) =>
-                  option, // Display the school name
+              displayStringForOption: (String option) => option,
               fieldViewBuilder: (BuildContext context,
                   TextEditingController fieldTextEditingController,
                   FocusNode fieldFocusNode,
                   VoidCallback onFieldSubmitted) {
                 return TextFormField(
-                  controller:
-                      fieldTextEditingController, // Connect Autocomplete to TextFormField
-                  focusNode:
-                      fieldFocusNode, // Use the same focus for the text field
+                  controller: fieldTextEditingController,
+                  focusNode: fieldFocusNode,
                   decoration: const InputDecoration(
                     labelText: 'School',
                     border: OutlineInputBorder(),
@@ -372,8 +340,7 @@ class _AccountPageState extends State<AccountPage> {
               },
               onSelected: (String selectedSchool) {
                 debugPrint('Selected school: $selectedSchool');
-                _schoolController.text =
-                    selectedSchool; // Save the selected school
+                _schoolController.text = selectedSchool;
               },
             ),
             const SizedBox(height: 30),
@@ -381,7 +348,7 @@ class _AccountPageState extends State<AccountPage> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                const Expanded(child: const Text("Grade")),
+                const Expanded(child: Text("Grade")),
                 _buildCustomRadioButton('10'),
                 _buildCustomRadioButton('11'),
                 _buildCustomRadioButton('12'),
@@ -432,14 +399,6 @@ class _AccountPageState extends State<AccountPage> {
                 _loading ? 'Saving...' : 'Save Changes',
                 style: const TextStyle(fontSize: 16),
               ),
-            ),
-            const SizedBox(height: 16),
-            TextButton(
-              onPressed: _signOut,
-              style: TextButton.styleFrom(
-                foregroundColor: Colors.teal,
-              ),
-              child: const Text('Sign Out'),
             ),
           ],
         ),

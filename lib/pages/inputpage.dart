@@ -1,12 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:funding/pages/landing_page.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
-import 'analytics.dart';
-//import 'dart:io';
-//import 'package:pdf/pdf.dart';
-//import 'package:pdf/widgets.dart' as pw;
-//import 'package:path_provider/path_provider.dart';
-//import 'package:open_file/open_file.dart';
+import 'package:funding/lists/subjects.dart'; // Import the file containing your lists
 
 class EnterMarksPage extends StatefulWidget {
   const EnterMarksPage({super.key});
@@ -16,61 +11,45 @@ class EnterMarksPage extends StatefulWidget {
 }
 
 class _EnterMarksPageState extends State<EnterMarksPage> {
-  String _selectedMath = 'Mathematics';
-  String _selectedEnglish = 'English Home Language';
-  String _selectedSubject1 = 'Accounting';
-  String _selectedSubject2 = 'Accounting';
-  String _selectedSubject3 = 'Accounting';
-  String _selectedSubject4 = 'Afrikaans';
+  String _selectedMath = mathematics[0];
+  String _selectedHomeLanguage = homeLanguages[0];
+  String _selectedFirstAdditionalLanguage = firstAdditionalLanguages[0];
+  String _selectedSecondAdditionalLanguage = secondAdditionalLanguages[0];
+  String _selectedSubject1 = "None";
+  String _selectedSubject2 = "None";
+  String _selectedSubject3 = "None";
+  String _selectedSubject4 = "None";
 
   int _mathMark = 0;
-  int _englishMark = 0;
+  int _homeLanguageMark = 0;
+  int _firstAdditionalLanguageMark = 0;
+  int _secondAdditionalLanguageMark = 0;
   int _subject1Mark = 0;
   int _subject2Mark = 0;
   int _subject3Mark = 0;
   int _subject4Mark = 0;
   int _lifeOrientationMark = 0;
 
-  final List<String> _subjects = [
-    'Accounting',
-    'Agricultural Management Practices',
-    'Agricultural Sciences',
-    'Agricultural Technology',
-    'Business Studies',
-    'Civil Technology',
-    'Computer Applications Technology',
-    'Consumer Studies',
-    'Dance Studies',
-    'Dramatic Arts',
-    'Economics',
-    'Electrical Technology',
-    'Engineering Graphics and Design',
-    'Geography',
-    'History',
-    'Hospitality Studies',
-    'Information Technology',
-    'Life Sciences',
-    'Mechanical Technology',
-    'Music',
-    'Physical Sciences',
-    'Religion Studies',
-    'Tourism',
-    'Visual Arts',
-    'None'
-  ];
+  List<String> get _availableElectives {
+    List<String> selectedElectives = [
+      _selectedSubject1,
+      _selectedSubject2,
+      _selectedSubject3,
+      _selectedSubject4,
+    ];
+    return electives
+        .where((elec) => !selectedElectives.contains(elec))
+        .toList();
+  }
 
-  final List<String> _subjects2 = [
-    'Sepedi',
-    'Sesotho',
-    'Setswana',
-    'siSwati',
-    'Tshivenda',
-    'Xitsonga',
-    'Afrikaans',
-    'isiNdebele',
-    'isiXhosa',
-    'isiZulu',
-  ];
+  List<DropdownMenuItem<String>> _getDropdownItems(List<String> items) {
+    return items.map((item) {
+      return DropdownMenuItem<String>(
+        value: item,
+        child: Text(item, style: const TextStyle(fontSize: 16.0)),
+      );
+    }).toList();
+  }
 
   List<DropdownMenuItem<int>> _getMarkDropdownItems() {
     List<DropdownMenuItem<int>> items = [];
@@ -82,14 +61,16 @@ class _EnterMarksPageState extends State<EnterMarksPage> {
 
   double _calculateAverage() {
     int totalMarks = _mathMark +
-        _englishMark +
+        _homeLanguageMark +
+        _firstAdditionalLanguageMark +
+        _secondAdditionalLanguageMark +
         _subject1Mark +
         _subject2Mark +
         _subject3Mark +
         _subject4Mark +
         _lifeOrientationMark;
 
-    return totalMarks / 7;
+    return totalMarks / 9; // Update the divisor to 9
   }
 
   // Get level based on mark
@@ -111,40 +92,6 @@ class _EnterMarksPageState extends State<EnterMarksPage> {
     }
   }
 
-  /*Future<File> generatePdf(List<Map<String, dynamic>> data) async {
-    final pdf = pw.Document();
-
-    pdf.addPage(
-      pw.Page(
-        build: (pw.Context context) {
-          return pw.Column(
-            children: [
-              pw.Text('Analytics Report',
-                  style: pw.TextStyle(
-                      fontSize: 24, fontWeight: pw.FontWeight.bold)),
-              pw.SizedBox(height: 20),
-              ...data.map(
-                (row) => pw.Row(
-                  children: [
-                    pw.Expanded(child: pw.Text(row['column1'] ?? '')),
-                    pw.Expanded(child: pw.Text(row['column2'] ?? '')),
-                    // Add more columns as needed
-                  ],
-                ),
-              ),
-            ],
-          );
-        },
-      ),
-    );
-
-    final outputFile =
-        File('${(await getTemporaryDirectory()).path}/analytics_report.pdf');
-    await outputFile.writeAsBytes(await pdf.save());
-
-    return outputFile;
-  }*/
-
   Future<void> _saveMarks() async {
     final user = Supabase.instance.client.auth.currentUser;
     if (user == null) {
@@ -158,7 +105,9 @@ class _EnterMarksPageState extends State<EnterMarksPage> {
 
     // Calculate the total APS by summing the levels
     final totalAPS = int.parse(_getLevelFromMark(_mathMark)) +
-        int.parse(_getLevelFromMark(_englishMark)) +
+        int.parse(_getLevelFromMark(_homeLanguageMark)) +
+        int.parse(_getLevelFromMark(_firstAdditionalLanguageMark)) +
+        int.parse(_getLevelFromMark(_secondAdditionalLanguageMark)) +
         int.parse(_getLevelFromMark(_subject1Mark)) +
         int.parse(_getLevelFromMark(_subject2Mark)) +
         int.parse(_getLevelFromMark(_subject3Mark)) +
@@ -169,8 +118,16 @@ class _EnterMarksPageState extends State<EnterMarksPage> {
       'user_id': user.id,
       'math_mark': _mathMark,
       'math_level': _getLevelFromMark(_mathMark), // Store level
-      'english_mark': _englishMark,
-      'english_level': _getLevelFromMark(_englishMark), // Store level
+      'math_type': _selectedMath, // Store the selected math type
+      'home_language_mark': _homeLanguageMark,
+      'home_language_level':
+          _getLevelFromMark(_homeLanguageMark), // Store level
+      'first_additional_language_mark': _firstAdditionalLanguageMark,
+      'first_additional_language_level':
+          _getLevelFromMark(_firstAdditionalLanguageMark), // Store level
+      'second_additional_language_mark': _secondAdditionalLanguageMark,
+      'second_additional_language_level':
+          _getLevelFromMark(_secondAdditionalLanguageMark), // Store level
       'subject1': _selectedSubject1,
       'subject1_mark': _subject1Mark,
       'subject1_level': _getLevelFromMark(_subject1Mark), // Store level
@@ -188,6 +145,9 @@ class _EnterMarksPageState extends State<EnterMarksPage> {
           _getLevelFromMark(_lifeOrientationMark), // Store level
       'average': averageMark,
       'aps_mark': totalAPS, // Store the total APS mark
+      'home_language': _selectedHomeLanguage,
+      'first_additional_language': _selectedFirstAdditionalLanguage,
+      'second_additional_language': _selectedSecondAdditionalLanguage,
     });
 
     // Check if response is null
@@ -200,7 +160,7 @@ class _EnterMarksPageState extends State<EnterMarksPage> {
     if (response.error != null) {
       print('Error saving marks: ${response.error!.message}');
     } else {
-      print('Marks and APS saved successfully');
+      print('Marks, math type, and APS saved successfully');
     }
   }
 
@@ -229,292 +189,231 @@ class _EnterMarksPageState extends State<EnterMarksPage> {
                 ),
               ),
             ),
-            _buildDropdownField(
-              label: 'Mathematics',
-              value: _selectedMath,
-              items: ['Mathematics', 'Mathematical Literacy'],
-              onChanged: (value) {
+            _buildDropdownWithMarkField(
+              subjectLabel: 'Mathematics',
+              subjectValue: _selectedMath,
+              subjectItems: mathematics,
+              onSubjectChanged: (value) {
                 setState(() {
                   _selectedMath = value!;
                 });
               },
-            ),
-            _buildMarkDropdownField(
-              label: 'Mathematics Mark',
-              value: _mathMark,
-              onChanged: (value) {
+              markValue: _mathMark,
+              onMarkChanged: (value) {
                 setState(() {
                   _mathMark = value ?? 0;
                 });
               },
+              isMarkEnabled: _selectedMath != 'None',
             ),
-            _buildLevelDisplay(level: _getLevelFromMark(_mathMark)),
-            const SizedBox(height: 20),
-            _buildDropdownField(
-              label: 'English',
-              value: _selectedEnglish,
-              items: [
-                'English Home Language',
-                'English First Additional Language',
-                'English Second Additional Language'
-              ],
-              onChanged: (value) {
+            _buildDropdownWithMarkField(
+              subjectLabel: 'Home Language',
+              subjectValue: _selectedHomeLanguage,
+              subjectItems: homeLanguages,
+              onSubjectChanged: (value) {
                 setState(() {
-                  _selectedEnglish = value!;
+                  _selectedHomeLanguage = value!;
                 });
               },
-            ),
-            _buildMarkDropdownField(
-              label: 'English Mark',
-              value: _englishMark,
-              onChanged: (value) {
+              markValue: _homeLanguageMark,
+              onMarkChanged: (value) {
                 setState(() {
-                  _englishMark = value ?? 0;
+                  _homeLanguageMark = value ?? 0;
                 });
               },
+              isMarkEnabled: _selectedHomeLanguage != 'None',
             ),
-            _buildLevelDisplay(level: _getLevelFromMark(_englishMark)),
-            const SizedBox(height: 20),
-            _buildDropdownField(
-              label: 'Subject 1',
-              value: _selectedSubject1,
-              items: _subjects,
-              onChanged: (value) {
+            _buildDropdownWithMarkField(
+              subjectLabel: 'First Additional Language',
+              subjectValue: _selectedFirstAdditionalLanguage,
+              subjectItems: firstAdditionalLanguages,
+              onSubjectChanged: (value) {
+                setState(() {
+                  _selectedFirstAdditionalLanguage = value!;
+                });
+              },
+              markValue: _firstAdditionalLanguageMark,
+              onMarkChanged: (value) {
+                setState(() {
+                  _firstAdditionalLanguageMark = value ?? 0;
+                });
+              },
+              isMarkEnabled: _selectedFirstAdditionalLanguage != 'None',
+            ),
+            _buildDropdownWithMarkField(
+              subjectLabel: 'Second Additional Language',
+              subjectValue: _selectedSecondAdditionalLanguage,
+              subjectItems: secondAdditionalLanguages,
+              onSubjectChanged: (value) {
+                setState(() {
+                  _selectedSecondAdditionalLanguage = value!;
+                });
+              },
+              markValue: _secondAdditionalLanguageMark,
+              onMarkChanged: (value) {
+                setState(() {
+                  _secondAdditionalLanguageMark = value ?? 0;
+                });
+              },
+              isMarkEnabled: _selectedSecondAdditionalLanguage != 'None',
+            ),
+            _buildDropdownWithMarkField(
+              subjectLabel: 'Elective 1',
+              subjectValue: _selectedSubject1,
+              subjectItems: _availableElectives,
+              onSubjectChanged: (value) {
                 setState(() {
                   _selectedSubject1 = value!;
                 });
               },
-            ),
-            _buildMarkDropdownField(
-              label: 'Subject 1 Mark',
-              value: _subject1Mark,
-              onChanged: (value) {
+              markValue: _subject1Mark,
+              onMarkChanged: (value) {
                 setState(() {
                   _subject1Mark = value ?? 0;
                 });
               },
+              isMarkEnabled: _selectedSubject1 != 'None',
             ),
-            _buildLevelDisplay(level: _getLevelFromMark(_subject1Mark)),
-            const SizedBox(height: 20),
-            _buildDropdownField(
-              label: 'Subject 2',
-              value: _selectedSubject2,
-              items: _subjects,
-              onChanged: (value) {
+            _buildDropdownWithMarkField(
+              subjectLabel: 'Elective 2',
+              subjectValue: _selectedSubject2,
+              subjectItems: _availableElectives,
+              onSubjectChanged: (value) {
                 setState(() {
                   _selectedSubject2 = value!;
                 });
               },
-            ),
-            _buildMarkDropdownField(
-              label: 'Subject 2 Mark',
-              value: _subject2Mark,
-              onChanged: (value) {
+              markValue: _subject2Mark,
+              onMarkChanged: (value) {
                 setState(() {
                   _subject2Mark = value ?? 0;
                 });
               },
+              isMarkEnabled: _selectedSubject2 != 'None',
             ),
-            _buildLevelDisplay(level: _getLevelFromMark(_subject2Mark)),
-            const SizedBox(height: 20),
-            _buildDropdownField(
-              label: 'Subject 3',
-              value: _selectedSubject3,
-              items: _subjects,
-              onChanged: (value) {
+            _buildDropdownWithMarkField(
+              subjectLabel: 'Elective 3',
+              subjectValue: _selectedSubject3,
+              subjectItems: _availableElectives,
+              onSubjectChanged: (value) {
                 setState(() {
                   _selectedSubject3 = value!;
                 });
               },
-            ),
-            _buildMarkDropdownField(
-              label: 'Subject 3 Mark',
-              value: _subject3Mark,
-              onChanged: (value) {
+              markValue: _subject3Mark,
+              onMarkChanged: (value) {
                 setState(() {
                   _subject3Mark = value ?? 0;
                 });
               },
+              isMarkEnabled: _selectedSubject3 != 'None',
             ),
-            _buildLevelDisplay(level: _getLevelFromMark(_subject3Mark)),
-            const SizedBox(height: 20),
-            _buildDropdownField(
-              label: 'Subject 4',
-              value: _selectedSubject4,
-              items: _subjects2,
-              onChanged: (value) {
+            _buildDropdownWithMarkField(
+              subjectLabel: 'Elective 4',
+              subjectValue: _selectedSubject4,
+              subjectItems: _availableElectives,
+              onSubjectChanged: (value) {
                 setState(() {
                   _selectedSubject4 = value!;
                 });
               },
-            ),
-            _buildMarkDropdownField(
-              label: 'Subject 4 Mark',
-              value: _subject4Mark,
-              onChanged: (value) {
+              markValue: _subject4Mark,
+              onMarkChanged: (value) {
                 setState(() {
                   _subject4Mark = value ?? 0;
                 });
               },
+              isMarkEnabled: _selectedSubject4 != 'None',
             ),
-            _buildLevelDisplay(level: _getLevelFromMark(_subject4Mark)),
-            const SizedBox(height: 20),
-            _buildMarkDropdownField(
-              label: 'Life Orientation Mark',
-              value: _lifeOrientationMark,
-              onChanged: (value) {
+            _buildDropdownWithMarkField(
+              subjectLabel: 'Life Orientation',
+              subjectValue: 'Life Orientation',
+              subjectItems: ['Life Orientation'], // Single item as label
+              onSubjectChanged: (value) {
+                // No change required
+              },
+              markValue: _lifeOrientationMark,
+              onMarkChanged: (value) {
                 setState(() {
                   _lifeOrientationMark = value ?? 0;
                 });
               },
+              isMarkEnabled: true, // Always enabled
             ),
-            _buildLevelDisplay(level: _getLevelFromMark(_lifeOrientationMark)),
-            const SizedBox(height: 40),
-            SizedBox(
-              width: double.infinity,
+            const SizedBox(height: 20),
+            Center(
               child: ElevatedButton(
                 onPressed: () async {
                   await _saveMarks();
-                  Navigator.push(
+
+                  // Navigate to the landing page after saving the marks
+                  Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => LandingPage(
-                          /*minAverageMark: _calculateAverage().toInt(),
-                        minMathMark: _mathMark,
-                        minPhysicsMark: _subject1Mark,
-                        minAccountingMark: _subject2Mark,
-                        minEnglishMark: _englishMark,
-                      */
-                          ),
-                    ),
+                        builder: (context) => const LandingPage()),
                   );
                 },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.teal,
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: 40.0, vertical: 20.0),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20.0),
-                  ),
-                ),
-                child: const Text(
-                  "Save marks",
-                  style: TextStyle(
-                    fontSize: 18.0,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
-                  ),
-                ),
+                child: const Text('Save Marks'),
               ),
             ),
-            const SizedBox(height: 40),
           ],
         ),
       ),
     );
   }
 
-  Widget _buildDropdownField({
-    required String label,
-    required String value,
-    required List<String> items,
-    required ValueChanged<String?> onChanged,
+  Widget _buildDropdownWithMarkField({
+    required String subjectLabel,
+    required String subjectValue,
+    required List<String> subjectItems,
+    required ValueChanged<String?> onSubjectChanged,
+    required int markValue,
+    required ValueChanged<int?> onMarkChanged,
+    required bool isMarkEnabled,
   }) {
     return Padding(
-      padding: const EdgeInsets.only(bottom: 20.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+      padding: const EdgeInsets.only(bottom: 16.0),
+      child: Row(
         children: [
-          Text(
-            label,
-            style: const TextStyle(
-              fontSize: 16.0,
-              fontWeight: FontWeight.w500,
-              color: Colors.black87,
-            ),
-          ),
-          const SizedBox(height: 8.0),
-          Container(
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(12.0),
-              border: Border.all(color: Colors.teal, width: 1.5),
-              color: Colors.grey[200],
-            ),
-            child: DropdownButtonFormField<String>(
-              value: value,
-              onChanged: onChanged,
-              items: items.map((item) {
-                return DropdownMenuItem<String>(
-                  value: item,
-                  child: Text(
-                    item,
-                    style: const TextStyle(fontSize: 16.0),
-                  ),
-                );
-              }).toList(),
-              decoration: const InputDecoration(
-                contentPadding:
-                    EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
-                border: InputBorder.none,
+          Expanded(
+            child: PopupMenuButton<String>(
+              onSelected: onSubjectChanged,
+              itemBuilder: (BuildContext context) {
+                return subjectItems.map((String item) {
+                  return PopupMenuItem<String>(
+                    value: item,
+                    child: SizedBox(
+                      width: 200, // Set a fixed width for scrolling
+                      child: SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
+                        child:
+                            Text(item, style: const TextStyle(fontSize: 16.0)),
+                      ),
+                    ),
+                  );
+                }).toList();
+              },
+              child: ListTile(
+                title: Text(subjectLabel),
+                subtitle: Text(subjectValue),
+                trailing: const Icon(Icons.arrow_drop_down),
               ),
             ),
           ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildMarkDropdownField({
-    required String label,
-    required int value,
-    required ValueChanged<int?> onChanged,
-  }) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 20.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            label,
-            style: const TextStyle(
-              fontSize: 16.0,
-              fontWeight: FontWeight.w500,
-              color: Colors.black87,
-            ),
-          ),
-          const SizedBox(height: 8.0),
-          Container(
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(12.0),
-              border: Border.all(color: Colors.teal, width: 1.5),
-              color: Colors.grey[200],
-            ),
+          const SizedBox(width: 16), // Space between dropdowns
+          SizedBox(
+            width: 80, // Set the width for the mark dropdown
             child: DropdownButtonFormField<int>(
-              value: value,
-              onChanged: onChanged,
-              items: _getMarkDropdownItems(),
+              value: isMarkEnabled ? markValue : null,
               decoration: const InputDecoration(
-                contentPadding:
-                    EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
-                border: InputBorder.none,
+                border: OutlineInputBorder(),
+                isDense: true, // Compact the dropdown
               ),
+              items: _getMarkDropdownItems(),
+              onChanged: isMarkEnabled ? onMarkChanged : null,
             ),
           ),
         ],
-      ),
-    );
-  }
-
-// Widget to display the calculated level
-  Widget _buildLevelDisplay({required String level}) {
-    return Padding(
-      padding: const EdgeInsets.only(top: 8.0),
-      child: Text(
-        'Level: $level',
-        style: const TextStyle(
-          fontWeight: FontWeight.bold,
-          color: Colors.teal,
-        ),
       ),
     );
   }

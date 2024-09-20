@@ -6,6 +6,8 @@ import 'dart:io';
 import 'package:funding/grades/grade12.dart';
 
 class AccountingGrade12Page extends StatefulWidget {
+  const AccountingGrade12Page({super.key});
+
   @override
   _AccountingGrade12PageState createState() => _AccountingGrade12PageState();
 }
@@ -22,12 +24,10 @@ class _AccountingGrade12PageState extends State<AccountingGrade12Page> {
 
   Future<void> _fetchPDFFiles() async {
     try {
-      // Specify the path to the "accounting" folder within "grade12"
       final List<FileObject> objects =
-          await supabase.storage.from('pdfs').list(path: 'grade 12/Accounting');
+          await supabase.storage.from('pdfs').list(path: 'grade_12/Accounting');
 
       setState(() {
-        // Filter out only PDF files
         pdfFiles = objects.where((file) => file.name.endsWith('.pdf')).toList();
       });
     } catch (e) {
@@ -35,12 +35,14 @@ class _AccountingGrade12PageState extends State<AccountingGrade12Page> {
     }
   }
 
-  Future<File?> _downloadPDF(String path) async {
+  Future<File?> _downloadPDF(String fileName) async {
     try {
+      final String path = 'grade_12/Accounting/$fileName';
       final response = await supabase.storage.from('pdfs').download(path);
+
       if (response.isNotEmpty) {
         final tempDir = await getTemporaryDirectory();
-        final file = File('${tempDir.path}/$path');
+        final file = File('${tempDir.path}/$fileName');
         await file.writeAsBytes(response);
         return file;
       }
@@ -50,26 +52,43 @@ class _AccountingGrade12PageState extends State<AccountingGrade12Page> {
     return null;
   }
 
-  void _openPDF(String path) async {
-    final File? file = await _downloadPDF(path);
+  void _openPDF(String fileName) async {
+    final File? file = await _downloadPDF(fileName);
     if (file != null) {
       Navigator.push(
-        // ignore: use_build_context_synchronously
         context,
         MaterialPageRoute(
           builder: (context) => PDFViewPage(file: file),
         ),
       );
+    } else {
+      print('Failed to open PDF');
     }
   }
 
   @override
   Widget build(BuildContext context) {
+    // Group PDFs by their subject and sort within each group
+    final Map<String, List<FileObject>> groupedFiles = {};
+    for (var file in pdfFiles) {
+      final name = file.name;
+      final subject = name.contains('P1')
+          ? 'P1'
+          : name.contains('P2')
+              ? 'P2'
+              : 'Other';
+
+      if (!groupedFiles.containsKey(subject)) {
+        groupedFiles[subject] = [];
+      }
+      groupedFiles[subject]!.add(file);
+    }
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.teal,
         title: const Text(
-          'PDF Files',
+          'ACCOUNTING PAPERS',
           style: TextStyle(
             color: Colors.white,
             fontWeight: FontWeight.bold,
@@ -87,41 +106,61 @@ class _AccountingGrade12PageState extends State<AccountingGrade12Page> {
       ),
       body: pdfFiles.isEmpty
           ? const Center(child: CircularProgressIndicator())
-          : ListView.builder(
-              itemCount: pdfFiles.length,
-              itemBuilder: (context, index) {
-                final file = pdfFiles[index];
-                return Card(
-                  margin:
-                      const EdgeInsets.symmetric(vertical: 10, horizontal: 16),
-                  color: Colors.teal,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15),
-                  ),
-                  child: ListTile(
-                    leading: const Icon(
-                      Icons.picture_as_pdf,
-                      color: Colors.redAccent,
-                      size: 40,
-                    ),
-                    title: Text(
-                      file.name,
-                      style: const TextStyle(
-                        color: Colors.white,
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
+          : ListView(
+              children: groupedFiles.entries.map((entry) {
+                final subject = entry.key;
+                final files = entry.value;
+
+                return Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 8, horizontal: 16),
+                      child: Text(
+                        subject,
+                        style: const TextStyle(
+                          fontSize: 22,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.teal,
+                        ),
                       ),
                     ),
-                    trailing: IconButton(
-                      icon: const Icon(
-                        Icons.arrow_forward_ios,
-                        color: Colors.white,
-                      ),
-                      onPressed: () => _openPDF(file.name),
-                    ),
-                  ),
+                    ...files.map((file) {
+                      return Card(
+                        margin: const EdgeInsets.symmetric(
+                            vertical: 8, horizontal: 16),
+                        color: Colors.teal,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(15),
+                        ),
+                        child: ListTile(
+                          leading: const Icon(
+                            Icons.picture_as_pdf,
+                            color: Colors.redAccent,
+                            size: 40,
+                          ),
+                          title: Text(
+                            file.name,
+                            style: const TextStyle(
+                              color: Colors.white,
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          trailing: IconButton(
+                            icon: const Icon(
+                              Icons.arrow_forward_ios,
+                              color: Colors.white,
+                            ),
+                            onPressed: () => _openPDF(file.name),
+                          ),
+                        ),
+                      );
+                    }),
+                  ],
                 );
-              },
+              }).toList(),
             ),
     );
   }
@@ -133,7 +172,6 @@ class PDFViewPage extends StatefulWidget {
   const PDFViewPage({super.key, required this.file});
 
   @override
-  // ignore: library_private_types_in_public_api
   _PDFViewPageState createState() => _PDFViewPageState();
 }
 
@@ -148,7 +186,7 @@ class _PDFViewPageState extends State<PDFViewPage> {
     return Scaffold(
       backgroundColor: Colors.black,
       appBar: AppBar(
-        backgroundColor: Colors.tealAccent,
+        backgroundColor: Colors.teal,
         title: const Text(
           'PDF Viewer',
           style: TextStyle(
@@ -163,7 +201,7 @@ class _PDFViewPageState extends State<PDFViewPage> {
             autoSpacing: true,
             enableSwipe: true,
             swipeHorizontal: true,
-            nightMode: true, // Dark mode for better reading
+            nightMode: true,
             onRender: (pages) {
               setState(() {
                 _totalPages = pages!;
@@ -217,7 +255,8 @@ class _PDFViewPageState extends State<PDFViewPage> {
                     ),
                   ),
                   IconButton(
-                    icon: Icon(Icons.arrow_forward_ios, color: Colors.white),
+                    icon: const Icon(Icons.arrow_forward_ios,
+                        color: Colors.white),
                     onPressed: () {
                       if (_currentPage < _totalPages - 1) {
                         _pdfViewController.setPage(_currentPage + 1);

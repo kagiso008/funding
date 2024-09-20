@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:funding/grades/grade10.dart';
 import 'package:funding/grades/grade11.dart';
-import 'package:funding/grades/grade12.dart';
+import 'package:funding/grades/grade12home.dart';
 
 class PastPapers extends StatelessWidget {
   const PastPapers({super.key});
@@ -37,7 +37,8 @@ class PastPapers extends StatelessWidget {
                   // Navigate to Homepage
                   Navigator.pushReplacement(
                     context,
-                    MaterialPageRoute(builder: (context) => Grade12Page()),
+                    MaterialPageRoute(
+                        builder: (context) => const Grade12HomePage()),
                   );
                 },
               ),

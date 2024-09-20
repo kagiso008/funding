@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class Grade10Page extends StatefulWidget {
+  const Grade10Page({super.key});
+
   @override
   _Grade10PageState createState() => _Grade10PageState();
 }
@@ -69,22 +71,22 @@ class _Grade10PageState extends State<Grade10Page> {
         backgroundColor: Colors.black87,
         leading: currentFolder != null
             ? IconButton(
-                icon: Icon(Icons.arrow_back),
+                icon: const Icon(Icons.arrow_back),
                 onPressed: _goBack,
               )
             : null,
       ),
       body: folders.isEmpty
-          ? Center(child: CircularProgressIndicator())
+          ? const Center(child: CircularProgressIndicator())
           : ListView.builder(
               itemCount: folders.length,
               itemBuilder: (context, index) {
                 final folder = folders[index];
                 return ListTile(
-                  leading: Icon(Icons.folder, color: Colors.amberAccent),
+                  leading: const Icon(Icons.folder, color: Colors.amberAccent),
                   title: Text(
                     folder,
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
                     ),

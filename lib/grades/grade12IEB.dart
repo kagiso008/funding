@@ -9,13 +9,10 @@ import 'package:funding/pastPapers/grade12IEB/AgriculturalManagementPractices/Ag
 import 'package:funding/pastPapers/grade12IEB/Equine%20studies/equineStudies.dart';
 import 'package:funding/pastPapers/grade12IEB/ConsumerStudies/consumerStudies.dart';
 import 'package:funding/pastPapers/grade12IEB/GreekSAL/greekSAL.dart';
-import 'package:funding/pastPapers/grade12IEB/Design/design.dart';
 import 'package:funding/pastPapers/grade12IEB/DramaticArts/dramaticArts.dart';
 import 'package:funding/pastPapers/grade12IEB/Economics/economics.dart';
 import 'package:funding/pastPapers/grade12IEB/frenchSAL/frenchSAL.dart';
-import 'package:funding/pastPapers/grade12IEB/EngineeringGraphicsAndDesign/egd.dart';
 import 'package:funding/pastPapers/grade12IEB/APEnglish/APEnglish.dart';
-import 'package:funding/pastPapers/grade12IEB/Geography/geography.dart';
 import 'package:funding/pastPapers/grade12IEB/History/history.dart';
 import 'package:funding/pastPapers/grade12IEB/GermanSAL/germanSAL.dart';
 import 'package:funding/pastPapers/grade12IEB/GujaratiFAL/gujaratiFAL.dart';
@@ -32,17 +29,14 @@ import 'package:funding/pastPapers/grade12IEB/Music/music.dart';
 import 'package:funding/pastPapers/grade12IEB/Mandarin/MandarinSAL.dart';
 import 'package:funding/pastPapers/grade12IEB/HindiSAL/hindiSAL.dart';
 import 'package:funding/pastPapers/grade12IEB/Sepedi/sepediHL.dart';
-import 'package:funding/pastPapers/grade12IEB/Sesotho/sesotho.dart';
-import 'package:funding/pastPapers/grade12IEB/Setswana/setswana.dart';
 import 'package:funding/pastPapers/grade12IEB/SiswatiHL/siswatiHL.dart';
 import 'package:funding/pastPapers/grade12IEB/SiswatiFAL/siswatiFAL.dart';
-import 'package:funding/pastPapers/grade12IEB/SouthAfricanSignLanguage/sign.dart';
 import 'package:funding/pastPapers/grade12IEB/Telegu/teluguSAL.dart';
 import 'package:funding/pastPapers/grade12IEB/TechnicalSciences/technicalScience.dart';
 import 'package:funding/pastPapers/grade12IEB/Tourism/tourism.dart';
-import 'package:funding/pastPapers/grade12IEB/Tshivenda/tshivenda.dart';
 import 'package:funding/pastPapers/grade12IEB/VisualCutureStudies/visualCutureStudies.dart';
 import 'package:funding/pastPapers/grade12IEB/Urdu/Urdu.dart';
+import 'package:funding/grades/grade12home.dart';
 
 class Grade12IEBPage extends StatelessWidget {
   const Grade12IEBPage({super.key});
@@ -50,6 +44,21 @@ class Grade12IEBPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back, color: Colors.white),
+          onPressed: () {
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(builder: (context) => const Grade12HomePage()),
+            );
+          },
+        ),
+        title: const Text("IEB SUBJECTS"),
+        backgroundColor: Colors.teal,
+        centerTitle: true,
+        elevation: 0,
+      ),
       backgroundColor: Colors.white,
       body: SafeArea(
         child: Padding(
@@ -59,17 +68,6 @@ class Grade12IEBPage extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                // Header text
-                const Text(
-                  'IEB SUBJECTS',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontSize: 32,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.teal,
-                  ),
-                ),
-
                 const SizedBox(height: 50),
                 _buildCustomButton(
                   label: 'Advanced Programme Afrikaans',
@@ -215,20 +213,7 @@ class Grade12IEBPage extends StatelessWidget {
                     Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => FrenchSALGrade12Page()),
-                    );
-                  },
-                ),
-                const SizedBox(height: 50),
-                _buildCustomButton(
-                  label: 'DESIGN',
-                  icon: Icons.book,
-                  color: Colors.teal,
-                  onPressed: () {
-                    Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => DesignGrade12Page()),
+                          builder: (context) => const FrenchSALGrade12Page()),
                     );
                   },
                 ),
@@ -320,7 +305,7 @@ class Grade12IEBPage extends StatelessWidget {
                     Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => HindiSALGrade12Page()),
+                          builder: (context) => const HindiSALGrade12Page()),
                     );
                   },
                 ),
@@ -385,7 +370,7 @@ class Grade12IEBPage extends StatelessWidget {
                     Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => MandarinSALGrade12Page()),
+                          builder: (context) => const MandarinSALGrade12Page()),
                     );
                   },
                 ),
@@ -426,7 +411,8 @@ class Grade12IEBPage extends StatelessWidget {
                     Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => MarineSciencesGrade12Page()),
+                          builder: (context) =>
+                              const MarineSciencesGrade12Page()),
                     );
                   },
                 ),
@@ -576,7 +562,6 @@ class Grade12IEBPage extends StatelessWidget {
                     );
                   },
                 ),
-
                 const SizedBox(height: 50),
               ],
             ),

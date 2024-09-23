@@ -4,7 +4,6 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:flutter_pdfview/flutter_pdfview.dart';
 import 'package:path_provider/path_provider.dart';
 import 'dart:io';
-import 'package:funding/grades/grade12.dart';
 
 class APMathGrade12Page extends StatefulWidget {
   const APMathGrade12Page({super.key});
@@ -15,7 +14,8 @@ class APMathGrade12Page extends StatefulWidget {
 
 class _APMathGrade12PageState extends State<APMathGrade12Page> {
   final SupabaseClient supabase = Supabase.instance.client;
-  List<FileObject> pdfFiles = [];
+  List<FileObject> pdfFilesP1 = [];
+  List<FileObject> pdfFilesP2 = [];
 
   @override
   void initState() {
@@ -25,14 +25,21 @@ class _APMathGrade12PageState extends State<APMathGrade12Page> {
 
   Future<void> _fetchPDFFiles() async {
     try {
-      // Specify the path to the "accounting" folder within "grade12"
+      // Specify the path to the "AdvancedProgrammeMaths" folder within "grade12"
       final List<FileObject> objects = await supabase.storage
           .from('pdfs')
           .list(path: 'grade_12/IEB/AdvancedProgrammeMaths');
 
       setState(() {
-        // Filter out only PDF files
-        pdfFiles = objects.where((file) => file.name.endsWith('.pdf')).toList();
+        // Filter out only PDF files and sort them by P1 and P2
+        pdfFilesP1 = objects
+            .where((file) =>
+                file.name.endsWith('.pdf') && file.name.contains('P1'))
+            .toList();
+        pdfFilesP2 = objects
+            .where((file) =>
+                file.name.endsWith('.pdf') && file.name.contains('P2'))
+            .toList();
       });
     } catch (e) {
       print('Error fetching files: $e');
@@ -93,45 +100,75 @@ class _APMathGrade12PageState extends State<APMathGrade12Page> {
           },
         ),
       ),
-      body: pdfFiles.isEmpty
+      body: (pdfFilesP1.isEmpty && pdfFilesP2.isEmpty)
           ? const Center(child: CircularProgressIndicator())
-          : ListView.builder(
-              itemCount: pdfFiles.length,
-              itemBuilder: (context, index) {
-                final file = pdfFiles[index];
-                return Card(
-                  margin:
-                      const EdgeInsets.symmetric(vertical: 10, horizontal: 16),
-                  color: Colors.teal,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15),
-                  ),
-                  child: ListTile(
-                    leading: const Icon(
-                      Icons.picture_as_pdf,
-                      color: Colors.redAccent,
-                      size: 40,
-                    ),
-                    title: Text(
-                      file.name,
-                      style: const TextStyle(
-                        color: Colors.white,
-                        fontSize: 18,
+          : ListView(
+              children: [
+                if (pdfFilesP1.isNotEmpty) ...[
+                  const Padding(
+                    padding: EdgeInsets.all(16.0),
+                    child: Text(
+                      'Paper 1 (P1)',
+                      style: TextStyle(
+                        fontSize: 20,
                         fontWeight: FontWeight.bold,
+                        color: Colors.teal,
                       ),
-                    ),
-                    trailing: IconButton(
-                      icon: const Icon(
-                        Icons.arrow_forward_ios,
-                        color: Colors.white,
-                      ),
-                      onPressed: () => _openPDF(file.name),
                     ),
                   ),
-                );
-              },
+                  ..._buildPDFList(pdfFilesP1),
+                ],
+                if (pdfFilesP2.isNotEmpty) ...[
+                  const Padding(
+                    padding: EdgeInsets.all(16.0),
+                    child: Text(
+                      'Paper 2 (P2)',
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.teal,
+                      ),
+                    ),
+                  ),
+                  ..._buildPDFList(pdfFilesP2),
+                ],
+              ],
             ),
     );
+  }
+
+  List<Widget> _buildPDFList(List<FileObject> files) {
+    return files.map((file) {
+      return Card(
+        margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 16),
+        color: Colors.teal,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(15),
+        ),
+        child: ListTile(
+          leading: const Icon(
+            Icons.picture_as_pdf,
+            color: Colors.redAccent,
+            size: 40,
+          ),
+          title: Text(
+            file.name,
+            style: const TextStyle(
+              color: Colors.white,
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          trailing: IconButton(
+            icon: const Icon(
+              Icons.arrow_forward_ios,
+              color: Colors.white,
+            ),
+            onPressed: () => _openPDF(file.name),
+          ),
+        ),
+      );
+    }).toList();
   }
 }
 
@@ -141,7 +178,6 @@ class PDFViewPage extends StatefulWidget {
   const PDFViewPage({super.key, required this.file});
 
   @override
-  // ignore: library_private_types_in_public_api
   _PDFViewPageState createState() => _PDFViewPageState();
 }
 

@@ -113,7 +113,7 @@ class _MandarinSALGrade12PageState extends State<MandarinSALGrade12Page> {
                           TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                     ),
                   ),
-                  ...p1Files.map((file) => _buildPDFCard(file)).toList(),
+                  ...p1Files.map((file) => _buildPDFCard(file)),
                 ],
                 if (p2Files.isNotEmpty) ...[
                   const Padding(
@@ -124,7 +124,7 @@ class _MandarinSALGrade12PageState extends State<MandarinSALGrade12Page> {
                           TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                     ),
                   ),
-                  ...p2Files.map((file) => _buildPDFCard(file)).toList(),
+                  ...p2Files.map((file) => _buildPDFCard(file)),
                 ],
               ],
             ),

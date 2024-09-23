@@ -4,7 +4,6 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:flutter_pdfview/flutter_pdfview.dart';
 import 'package:path_provider/path_provider.dart';
 import 'dart:io';
-import 'package:funding/grades/grade12.dart';
 
 class AgriculturalManagementPractices extends StatefulWidget {
   const AgriculturalManagementPractices({super.key});
@@ -27,18 +26,36 @@ class _AgriculturalManagementPracticesState
 
   Future<void> _fetchPDFFiles() async {
     try {
-      // Specify the path to the "accounting" folder within "grade12"
+      // Specify the path to the folder
       final List<FileObject> objects = await supabase.storage
           .from('pdfs')
           .list(path: 'grade_12/IEB/AgriculturalManagementPractices');
 
       setState(() {
-        // Filter out only PDF files
+        // Filter only PDF files
         pdfFiles = objects.where((file) => file.name.endsWith('.pdf')).toList();
+
+        // Sort the files by year extracted from the file name
+        pdfFiles.sort((a, b) {
+          final yearA = _extractYear(a.name);
+          final yearB = _extractYear(b.name);
+          return yearA.compareTo(yearB);
+        });
       });
     } catch (e) {
       print('Error fetching files: $e');
     }
+  }
+
+// Function to extract the year from the file name (assuming the format includes the year)
+  int _extractYear(String fileName) {
+    final RegExp yearRegExp = RegExp(r'\d{4}');
+    final match = yearRegExp.firstMatch(fileName);
+    if (match != null) {
+      return int.parse(match.group(0)!);
+    }
+    // Default year if no year found in the name
+    return 0;
   }
 
   Future<File?> _downloadPDF(String fileName) async {

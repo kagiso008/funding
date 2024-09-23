@@ -4,7 +4,6 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:flutter_pdfview/flutter_pdfview.dart';
 import 'package:path_provider/path_provider.dart';
 import 'dart:io';
-import 'package:funding/grades/grade12.dart';
 
 class GreekSALGrade12Page extends StatefulWidget {
   const GreekSALGrade12Page({super.key});
@@ -170,7 +169,7 @@ class _GreekSALGrade12PageState extends State<GreekSALGrade12Page> {
       appBar: AppBar(
         backgroundColor: Colors.teal,
         title: const Text(
-          'GEOGRAPHY PAPERS',
+          'GREEK SAL PAPERS',
           style: TextStyle(
             color: Colors.white,
             fontWeight: FontWeight.bold,
@@ -191,7 +190,7 @@ class _GreekSALGrade12PageState extends State<GreekSALGrade12Page> {
           : SingleChildScrollView(
               child: Column(
                 children: [
-                  _buildPDFListByPaper(pdfFiles, 'GreekSAL Grade 12 Papers'),
+                  _buildPDFListByPaper(pdfFiles, 'Greek SAL Grade 12 Papers'),
                 ],
               ),
             ),

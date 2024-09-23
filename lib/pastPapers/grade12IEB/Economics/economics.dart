@@ -4,7 +4,6 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:flutter_pdfview/flutter_pdfview.dart';
 import 'package:path_provider/path_provider.dart';
 import 'dart:io';
-import 'package:funding/grades/grade12.dart';
 
 class EconomicsGrade12Page extends StatefulWidget {
   const EconomicsGrade12Page({super.key});
@@ -25,17 +24,18 @@ class _EconomicsGrade12PageState extends State<EconomicsGrade12Page> {
 
   Future<void> _fetchPDFFiles() async {
     try {
-      final List<FileObject> objects =
-          await supabase.storage.from('pdfs').list(path: 'grade_12/IEB/Economics');
+      final List<FileObject> objects = await supabase.storage
+          .from('pdfs')
+          .list(path: 'grade_12/IEB/Economics');
 
       setState(() {
         pdfFiles = objects.where((file) => file.name.endsWith('.pdf')).toList();
 
+        // Sort by year only
         pdfFiles.sort((a, b) {
-          final aType = _extractPaperType(a.name);
-          final bType = _extractPaperType(b.name);
-          const order = ['P1', 'P2', 'P3', 'Other'];
-          return order.indexOf(aType).compareTo(order.indexOf(bType));
+          final aYear = _extractYear(a.name);
+          final bYear = _extractYear(b.name);
+          return bYear.compareTo(aYear); // Sort by year in descending order
         });
       });
     } catch (e) {
@@ -43,11 +43,13 @@ class _EconomicsGrade12PageState extends State<EconomicsGrade12Page> {
     }
   }
 
-  String _extractPaperType(String fileName) {
-    if (fileName.contains('P1')) return 'P1';
-    if (fileName.contains('P2')) return 'P2';
-    if (fileName.contains('P3')) return 'P3';
-    return 'Other';
+  String _extractYear(String fileName) {
+    final yearRegex = RegExp(r'\d{4}');
+    final match = yearRegex.firstMatch(fileName);
+    if (match != null) {
+      return match.group(0) ?? '0000'; // Return year or default '0000'
+    }
+    return '0000'; // Default if no year is found
   }
 
   Future<File?> _downloadPDF(String fileName) async {
@@ -81,77 +83,43 @@ class _EconomicsGrade12PageState extends State<EconomicsGrade12Page> {
     }
   }
 
-  Widget _buildPDFListByPaper(List<FileObject> files) {
-    final p1Files =
-        files.where((file) => _extractPaperType(file.name) == 'P1').toList();
-    final p2Files =
-        files.where((file) => _extractPaperType(file.name) == 'P2').toList();
-    final p3Files =
-        files.where((file) => _extractPaperType(file.name) == 'P3').toList();
-
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        if (p1Files.isNotEmpty) _buildPaperSection('Paper 1 (P1)', p1Files),
-        if (p2Files.isNotEmpty) _buildPaperSection('Paper 2 (P2)', p2Files),
-        if (p3Files.isNotEmpty) _buildPaperSection('Paper 3 (P3)', p3Files),
-      ],
-    );
-  }
-
-  Widget _buildPaperSection(String title, List<FileObject> files) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-          child: Text(
-            title,
-            style: const TextStyle(
-              fontSize: 18,
-              fontWeight: FontWeight.bold,
-              color: Colors.black87,
+  Widget _buildPDFListByYear(List<FileObject> files) {
+    return ListView.builder(
+      shrinkWrap: true,
+      physics: const NeverScrollableScrollPhysics(),
+      itemCount: files.length,
+      itemBuilder: (context, index) {
+        final file = files[index];
+        return Card(
+          margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 16),
+          color: Colors.teal,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(15),
+          ),
+          child: ListTile(
+            leading: const Icon(
+              Icons.picture_as_pdf,
+              color: Colors.redAccent,
+              size: 40,
+            ),
+            title: Text(
+              file.name,
+              style: const TextStyle(
+                color: Colors.white,
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            trailing: IconButton(
+              icon: const Icon(
+                Icons.arrow_forward_ios,
+                color: Colors.white,
+              ),
+              onPressed: () => _openPDF(file.name),
             ),
           ),
-        ),
-        ListView.builder(
-          shrinkWrap: true,
-          physics: const NeverScrollableScrollPhysics(),
-          itemCount: files.length,
-          itemBuilder: (context, index) {
-            final file = files[index];
-            return Card(
-              margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 16),
-              color: Colors.teal,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(15),
-              ),
-              child: ListTile(
-                leading: const Icon(
-                  Icons.picture_as_pdf,
-                  color: Colors.redAccent,
-                  size: 40,
-                ),
-                title: Text(
-                  file.name,
-                  style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                trailing: IconButton(
-                  icon: const Icon(
-                    Icons.arrow_forward_ios,
-                    color: Colors.white,
-                  ),
-                  onPressed: () => _openPDF(file.name),
-                ),
-              ),
-            );
-          },
-        ),
-      ],
+        );
+      },
     );
   }
 
@@ -194,7 +162,7 @@ class _EconomicsGrade12PageState extends State<EconomicsGrade12Page> {
                       ),
                     ),
                   ),
-                  _buildPDFListByPaper(pdfFiles),
+                  _buildPDFListByYear(pdfFiles),
                 ],
               ),
             ),

@@ -4,7 +4,6 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:flutter_pdfview/flutter_pdfview.dart';
 import 'package:path_provider/path_provider.dart';
 import 'dart:io';
-import 'package:funding/grades/grade12.dart';
 
 class SiswatiHLGrade12Page extends StatefulWidget {
   const SiswatiHLGrade12Page({super.key});
@@ -28,8 +27,9 @@ class _SiswatiHLGrade12PageState extends State<SiswatiHLGrade12Page> {
 
   Future<void> _fetchPDFFiles() async {
     try {
-      final List<FileObject> objects =
-          await supabase.storage.from('pdfs').list(path: 'grade_12/SiswatiHL');
+      final List<FileObject> objects = await supabase.storage
+          .from('pdfs')
+          .list(path: 'grade_12/IEB/SiswatiHomeLanguage');
 
       setState(() {
         pdfFiles = objects.where((file) => file.name.endsWith('.pdf')).toList();
@@ -57,7 +57,7 @@ class _SiswatiHLGrade12PageState extends State<SiswatiHLGrade12Page> {
 
   Future<File?> _downloadPDF(String fileName) async {
     try {
-      final String path = 'grade_12/SiswatiHL/$fileName';
+      final String path = 'grade_12/IEB/SiswatiHomeLanguage/$fileName';
       final response = await supabase.storage.from('pdfs').download(path);
 
       if (response.isNotEmpty) {
@@ -222,10 +222,7 @@ class _SiswatiHLGrade12PageState extends State<SiswatiHLGrade12Page> {
                 ),
               ),
             ),
-            // Build lists for HL, FAL, and SAL sorted by P1, P2, P3
             _buildPDFListByPaper(hlFiles, 'Home Language (HL)'),
-            _buildPDFListByPaper(falFiles, 'First Additional Language (FAL)'),
-            _buildPDFListByPaper(salFiles, 'Second Additional Language (SAL)'),
           ],
         ),
       ),

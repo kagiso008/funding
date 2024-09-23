@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:funding/pages/landing_page.dart';
+import 'package:funding/pages/login_page.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:flutter_web_plugins/url_strategy.dart';
 

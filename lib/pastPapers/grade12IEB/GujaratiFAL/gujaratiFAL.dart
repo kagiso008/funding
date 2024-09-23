@@ -4,7 +4,6 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:flutter_pdfview/flutter_pdfview.dart';
 import 'package:path_provider/path_provider.dart';
 import 'dart:io';
-import 'package:funding/grades/grade12.dart';
 
 class GujaratiFALGrade12Page extends StatefulWidget {
   const GujaratiFALGrade12Page({super.key});
@@ -191,7 +190,8 @@ class _GujaratiFALGrade12PageState extends State<GujaratiFALGrade12Page> {
           : SingleChildScrollView(
               child: Column(
                 children: [
-                  _buildPDFListByPaper(pdfFiles, 'GujaratiFAL Grade 12 Papers'),
+                  _buildPDFListByPaper(
+                      pdfFiles, 'Gujarati FAL Grade 12 Papers'),
                 ],
               ),
             ),

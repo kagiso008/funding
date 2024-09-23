@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:funding/pages/APSPage.dart';
-import 'package:funding/pages/homepage.dart';
+import 'package:funding/pages/scholarshipsPage.dart';
 import 'package:funding/pages/login_page.dart'; // Assuming you have a login page
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:funding/pages/analytics.dart';

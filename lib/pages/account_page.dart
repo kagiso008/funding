@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:funding/pages/inputpage.dart';
-import 'package:funding/pages/verification_page.dart'; // Import the new VerificationPage
+import 'package:funding/pages/verification_page.dart';
 import 'package:funding/main.dart';
 import 'package:funding/lists/schools.dart';
 
@@ -99,8 +99,8 @@ class _AccountPageState extends State<AccountPage> {
       'id': user!.id,
       'first_name': firstName,
       'last_name': lastName,
-      'phone_number': fullPhoneNumber, // Save full phone number
-      'area_code': _selectedAreaCode, // Save area code separately if needed
+      'phone_number': fullPhoneNumber,
+      'area_code': _selectedAreaCode,
       'password': password,
       'school': school,
       'grade': _selectedGrade,
@@ -140,7 +140,7 @@ class _AccountPageState extends State<AccountPage> {
         },
         child: Container(
           margin: const EdgeInsets.symmetric(horizontal: 8.0),
-          padding: const EdgeInsets.all(8.0),
+          padding: const EdgeInsets.all(12.0),
           decoration: BoxDecoration(
             border: Border.all(
               color: _selectedGrade == value ? Colors.teal : Colors.grey,
@@ -151,19 +151,15 @@ class _AccountPageState extends State<AccountPage> {
                 ? Colors.teal.withOpacity(0.1)
                 : Colors.white,
           ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              // This is the number inside the radio button
-              Text(
-                value,
-                style: TextStyle(
-                  color: _selectedGrade == value ? Colors.teal : Colors.grey,
-                  fontSize: 16,
-                  fontWeight: FontWeight.bold,
-                ),
+          child: Center(
+            child: Text(
+              value,
+              style: TextStyle(
+                color: _selectedGrade == value ? Colors.teal : Colors.grey,
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
               ),
-            ],
+            ),
           ),
         ),
       ),
@@ -175,13 +171,19 @@ class _AccountPageState extends State<AccountPage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Profile'),
-        backgroundColor: Colors.teal, // Match the Homepage color
+        backgroundColor: Colors.teal,
         centerTitle: true,
         elevation: 0,
       ),
       body: Container(
         padding: const EdgeInsets.all(16.0),
-        color: Colors.grey[100], // Match the Homepage color
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            colors: [Colors.teal[300]!, Colors.teal[600]!],
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+          ),
+        ),
         child: ListView(
           children: [
             TextFormField(
@@ -189,6 +191,8 @@ class _AccountPageState extends State<AccountPage> {
               decoration: const InputDecoration(
                 labelText: 'First Name',
                 border: OutlineInputBorder(),
+                filled: true,
+                fillColor: Colors.white,
               ),
             ),
             const SizedBox(height: 16),
@@ -197,6 +201,8 @@ class _AccountPageState extends State<AccountPage> {
               decoration: const InputDecoration(
                 labelText: 'Last Name',
                 border: OutlineInputBorder(),
+                filled: true,
+                fillColor: Colors.white,
               ),
             ),
             const SizedBox(height: 16),
@@ -228,6 +234,8 @@ class _AccountPageState extends State<AccountPage> {
                     decoration: const InputDecoration(
                       labelText: 'Phone Number',
                       border: OutlineInputBorder(),
+                      filled: true,
+                      fillColor: Colors.white,
                     ),
                     keyboardType: TextInputType.phone,
                   ),
@@ -235,10 +243,11 @@ class _AccountPageState extends State<AccountPage> {
               ],
             ),
             const SizedBox(height: 16),
-            const Text('Please enter your date of birth'),
+            const Text(
+              'Please enter your date of birth',
+              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+            ),
             const SizedBox(height: 16),
-
-            // Add Dropdowns for Day, Month, and Year
             Row(
               children: [
                 Expanded(
@@ -246,6 +255,8 @@ class _AccountPageState extends State<AccountPage> {
                     value: _selectedDay,
                     decoration: const InputDecoration(
                       labelText: 'Day',
+                      filled: true,
+                      fillColor: Colors.white,
                     ),
                     items: List.generate(31, (index) => index + 1)
                         .map((day) => DropdownMenuItem(
@@ -266,6 +277,8 @@ class _AccountPageState extends State<AccountPage> {
                     value: _selectedMonth,
                     decoration: const InputDecoration(
                       labelText: 'Month',
+                      filled: true,
+                      fillColor: Colors.white,
                     ),
                     items: List.generate(12, (index) => index + 1)
                         .map((month) => DropdownMenuItem(
@@ -286,9 +299,10 @@ class _AccountPageState extends State<AccountPage> {
                     value: _selectedYear,
                     decoration: const InputDecoration(
                       labelText: 'Year',
+                      filled: true,
+                      fillColor: Colors.white,
                     ),
-                    items: List.generate(
-                            100, (index) => DateTime.now().year - index)
+                    items: List.generate(100, (index) => 1920 + index)
                         .map((year) => DropdownMenuItem(
                               value: year.toString(),
                               child: Text(year.toString()),
@@ -303,102 +317,40 @@ class _AccountPageState extends State<AccountPage> {
                 ),
               ],
             ),
-            const SizedBox(height: 30),
-            Autocomplete<String>(
-              optionsBuilder: (TextEditingValue textEditingValue) {
-                if (textEditingValue.text.isEmpty) {
-                  return const Iterable<String>.empty();
-                }
-
-                // Use the 'schools' variable imported from 'schools.dart'
-                return schools.where((String option) {
-                  return option
-                      .toLowerCase()
-                      .contains(textEditingValue.text.toLowerCase());
-                });
-              },
-              displayStringForOption: (String option) => option,
-              fieldViewBuilder: (BuildContext context,
-                  TextEditingController fieldTextEditingController,
-                  FocusNode fieldFocusNode,
-                  VoidCallback onFieldSubmitted) {
-                return TextFormField(
-                  controller: fieldTextEditingController,
-                  focusNode: fieldFocusNode,
-                  decoration: const InputDecoration(
-                    labelText: 'School',
-                    border: OutlineInputBorder(),
-                    hintText: 'Search and select your school',
-                  ),
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Please select a school';
-                    }
-                    return null;
-                  },
-                );
-              },
-              onSelected: (String selectedSchool) {
-                debugPrint('Selected school: $selectedSchool');
-                _schoolController.text = selectedSchool;
-              },
+            const SizedBox(height: 16),
+            const Text(
+              'Select your grade',
+              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
             ),
-            const SizedBox(height: 30),
-            // Add the grade selectors in one row
+            const SizedBox(height: 16),
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                const Expanded(child: Text("Grade")),
                 _buildCustomRadioButton('10'),
                 _buildCustomRadioButton('11'),
                 _buildCustomRadioButton('12'),
               ],
             ),
-            const SizedBox(
-              height: 30,
-            ),
+            const SizedBox(height: 16),
             TextFormField(
-              controller: _passwordController,
+              controller: _schoolController,
               decoration: const InputDecoration(
-                labelText: 'Password',
+                labelText: 'School',
                 border: OutlineInputBorder(),
+                filled: true,
+                fillColor: Colors.white,
               ),
-              obscureText: true, // Hides the password input
             ),
-            const SizedBox(height: 24),
+            const SizedBox(height: 16),
             ElevatedButton(
-              onPressed: _loading
-                  ? null
-                  : () {
-                      final phoneNumber =
-                          '$_selectedAreaCode${_phoneNumberController.text.trim()}';
-
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => VerificationPage(
-                            phoneNumber: phoneNumber,
-                            verifyServiceSid:
-                                'VA6d981f03d1c375faee5e14a32eceaee3', // Pass the verifyServiceSid
-                          ),
-                        ),
-                      ).then((isVerified) {
-                        if (isVerified == true) {
-                          _updateProfile(); // Proceed with updating the profile if verified
-                        }
-                      });
-                    },
+              onPressed: _loading ? null : _updateProfile,
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.teal,
                 padding: const EdgeInsets.symmetric(vertical: 16),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(12),
-                ),
+                textStyle: const TextStyle(fontSize: 18),
               ),
-              child: Text(
-                _loading ? 'Saving...' : 'Save Changes',
-                style: const TextStyle(fontSize: 16),
-              ),
+              child: _loading
+                  ? const CircularProgressIndicator()
+                  : const Text('Update Profile'),
             ),
           ],
         ),

@@ -4,7 +4,6 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:flutter_pdfview/flutter_pdfview.dart';
 import 'package:path_provider/path_provider.dart';
 import 'dart:io';
-import 'package:funding/grades/grade12.dart';
 
 class UrduSALGrade12Page extends StatefulWidget {
   const UrduSALGrade12Page({super.key});
@@ -28,8 +27,9 @@ class _UrduSALGrade12PageState extends State<UrduSALGrade12Page> {
 
   Future<void> _fetchPDFFiles() async {
     try {
-      final List<FileObject> objects =
-          await supabase.storage.from('pdfs').list(path: 'grade_12/UrduSAL');
+      final List<FileObject> objects = await supabase.storage
+          .from('pdfs')
+          .list(path: 'grade_12/IEB/UrduSAL');
 
       setState(() {
         pdfFiles = objects.where((file) => file.name.endsWith('.pdf')).toList();
@@ -57,7 +57,7 @@ class _UrduSALGrade12PageState extends State<UrduSALGrade12Page> {
 
   Future<File?> _downloadPDF(String fileName) async {
     try {
-      final String path = 'grade_12/UrduSAL/$fileName';
+      final String path = 'grade_12/IEB/UrduSAL/$fileName';
       final response = await supabase.storage.from('pdfs').download(path);
 
       if (response.isNotEmpty) {
@@ -214,7 +214,7 @@ class _UrduSALGrade12PageState extends State<UrduSALGrade12Page> {
             const Padding(
               padding: EdgeInsets.all(16.0),
               child: Text(
-                'UrduSAL Grade 12 Papers',
+                'Urdu SAL Grade 12 Papers',
                 style: TextStyle(
                   fontSize: 24,
                   fontWeight: FontWeight.bold,
@@ -222,9 +222,6 @@ class _UrduSALGrade12PageState extends State<UrduSALGrade12Page> {
                 ),
               ),
             ),
-            // Build lists for HL, FAL, and SAL sorted by P1, P2, P3
-            _buildPDFListByPaper(hlFiles, 'Home Language (HL)'),
-            _buildPDFListByPaper(falFiles, 'First Additional Language (FAL)'),
             _buildPDFListByPaper(salFiles, 'Second Additional Language (SAL)'),
           ],
         ),

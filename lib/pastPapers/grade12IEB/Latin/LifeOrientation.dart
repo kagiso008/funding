@@ -4,7 +4,6 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:flutter_pdfview/flutter_pdfview.dart';
 import 'package:path_provider/path_provider.dart';
 import 'dart:io';
-import 'package:funding/grades/grade12.dart';
 
 class LatinSALGrade12Page extends StatefulWidget {
   const LatinSALGrade12Page({super.key});
@@ -15,7 +14,9 @@ class LatinSALGrade12Page extends StatefulWidget {
 
 class _LatinSALGrade12PageState extends State<LatinSALGrade12Page> {
   final SupabaseClient supabase = Supabase.instance.client;
-  List<FileObject> pdfFiles = [];
+  List<FileObject> p1Files = [];
+  List<FileObject> p2Files = [];
+  List<FileObject> otherFiles = [];
 
   @override
   void initState() {
@@ -25,13 +26,21 @@ class _LatinSALGrade12PageState extends State<LatinSALGrade12Page> {
 
   Future<void> _fetchPDFFiles() async {
     try {
-      // Specify the path to the "accounting" folder within "grade12"
-      final List<FileObject> objects =
-          await supabase.storage.from('pdfs').list(path: 'grade_12/IEB/LatinSAL');
+      final List<FileObject> objects = await supabase.storage
+          .from('pdfs')
+          .list(path: 'grade_12/IEB/LatinSAL');
 
       setState(() {
-        // Filter out only PDF files
-        pdfFiles = objects.where((file) => file.name.endsWith('.pdf')).toList();
+        // Filter PDF files and sort them by paper type
+        for (var file in objects.where((file) => file.name.endsWith('.pdf'))) {
+          if (file.name.contains('P1')) {
+            p1Files.add(file);
+          } else if (file.name.contains('P2')) {
+            p2Files.add(file);
+          } else {
+            otherFiles.add(file);
+          }
+        }
       });
     } catch (e) {
       print('Error fetching files: $e');
@@ -40,7 +49,6 @@ class _LatinSALGrade12PageState extends State<LatinSALGrade12Page> {
 
   Future<File?> _downloadPDF(String fileName) async {
     try {
-      // Full path including folder and file name
       final String path = 'grade_12/IEB/LatinSAL/$fileName';
       final response = await supabase.storage.from('pdfs').download(path);
 
@@ -57,7 +65,7 @@ class _LatinSALGrade12PageState extends State<LatinSALGrade12Page> {
   }
 
   void _openPDF(String fileName) async {
-    final File? file = await _downloadPDF(fileName); // Pass the file name
+    final File? file = await _downloadPDF(fileName);
     if (file != null) {
       Navigator.push(
         context,
@@ -68,6 +76,65 @@ class _LatinSALGrade12PageState extends State<LatinSALGrade12Page> {
     } else {
       print('Failed to open PDF');
     }
+  }
+
+  Widget _buildPDFListByPaper(String paperType, List<FileObject> pdfFiles) {
+    return pdfFiles.isEmpty
+        ? const SizedBox.shrink()
+        : Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Text(
+                  '$paperType Papers',
+                  style: const TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.teal,
+                  ),
+                ),
+              ),
+              ListView.builder(
+                physics: const NeverScrollableScrollPhysics(),
+                shrinkWrap: true,
+                itemCount: pdfFiles.length,
+                itemBuilder: (context, index) {
+                  final file = pdfFiles[index];
+                  return Card(
+                    margin: const EdgeInsets.symmetric(
+                        vertical: 10, horizontal: 16),
+                    color: Colors.teal,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(15),
+                    ),
+                    child: ListTile(
+                      leading: const Icon(
+                        Icons.picture_as_pdf,
+                        color: Colors.redAccent,
+                        size: 40,
+                      ),
+                      title: Text(
+                        file.name,
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      trailing: IconButton(
+                        icon: const Icon(
+                          Icons.arrow_forward_ios,
+                          color: Colors.white,
+                        ),
+                        onPressed: () => _openPDF(file.name),
+                      ),
+                    ),
+                  );
+                },
+              ),
+            ],
+          );
   }
 
   @override
@@ -92,43 +159,16 @@ class _LatinSALGrade12PageState extends State<LatinSALGrade12Page> {
           },
         ),
       ),
-      body: pdfFiles.isEmpty
+      body: (p1Files.isEmpty && p2Files.isEmpty && otherFiles.isEmpty)
           ? const Center(child: CircularProgressIndicator())
-          : ListView.builder(
-              itemCount: pdfFiles.length,
-              itemBuilder: (context, index) {
-                final file = pdfFiles[index];
-                return Card(
-                  margin:
-                      const EdgeInsets.symmetric(vertical: 10, horizontal: 16),
-                  color: Colors.teal,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15),
-                  ),
-                  child: ListTile(
-                    leading: const Icon(
-                      Icons.picture_as_pdf,
-                      color: Colors.redAccent,
-                      size: 40,
-                    ),
-                    title: Text(
-                      file.name,
-                      style: const TextStyle(
-                        color: Colors.white,
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    trailing: IconButton(
-                      icon: const Icon(
-                        Icons.arrow_forward_ios,
-                        color: Colors.white,
-                      ),
-                      onPressed: () => _openPDF(file.name),
-                    ),
-                  ),
-                );
-              },
+          : SingleChildScrollView(
+              child: Column(
+                children: [
+                  _buildPDFListByPaper('P1', p1Files),
+                  _buildPDFListByPaper('P2', p2Files),
+                  _buildPDFListByPaper('Other', otherFiles),
+                ],
+              ),
             ),
     );
   }
@@ -140,7 +180,6 @@ class PDFViewPage extends StatefulWidget {
   const PDFViewPage({super.key, required this.file});
 
   @override
-  // ignore: library_private_types_in_public_api
   _PDFViewPageState createState() => _PDFViewPageState();
 }
 
@@ -170,7 +209,7 @@ class _PDFViewPageState extends State<PDFViewPage> {
             autoSpacing: true,
             enableSwipe: true,
             swipeHorizontal: true,
-            nightMode: true, // Dark mode for better reading
+            nightMode: true,
             onRender: (pages) {
               setState(() {
                 _totalPages = pages!;

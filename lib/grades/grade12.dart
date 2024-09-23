@@ -42,6 +42,7 @@ import 'package:funding/pastPapers/grade12/Tourism/tourism.dart';
 import 'package:funding/pastPapers/grade12/Tshivenda/tshivenda.dart';
 import 'package:funding/pastPapers/grade12/VisualArts/visualArts.dart';
 import 'package:funding/pastPapers/grade12/Xitsonga/xitsonga.dart';
+import 'package:funding/grades/grade12home.dart';
 
 class Grade12Page extends StatelessWidget {
   const Grade12Page({super.key});
@@ -49,6 +50,21 @@ class Grade12Page extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back, color: Colors.white),
+          onPressed: () {
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(builder: (context) => const Grade12HomePage()),
+            );
+          },
+        ),
+        title: const Text("NSC SUBJECTS"),
+        backgroundColor: Colors.teal,
+        centerTitle: true,
+        elevation: 0,
+      ),
       backgroundColor: Colors.white,
       body: SafeArea(
         child: Padding(
@@ -58,17 +74,6 @@ class Grade12Page extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                // Header text
-                const Text(
-                  'SUBJECTS',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontSize: 32,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.teal,
-                  ),
-                ),
-
                 const SizedBox(height: 50),
                 _buildCustomButton(
                   label: 'ACCOUNTING',
@@ -78,7 +83,7 @@ class Grade12Page extends StatelessWidget {
                     Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => AccountingGrade12Page()),
+                          builder: (context) => const AccountingGrade12Page()),
                     );
                   },
                 ),
@@ -91,7 +96,7 @@ class Grade12Page extends StatelessWidget {
                     Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => AfrikaansGrade12Page()),
+                          builder: (context) => const AfrikaansGrade12Page()),
                     );
                   },
                 ),
@@ -105,7 +110,7 @@ class Grade12Page extends StatelessWidget {
                       context,
                       MaterialPageRoute(
                           builder: (context) =>
-                              AgriculturalScienceGrade12Page()),
+                              const AgriculturalScienceGrade12Page()),
                     );
                   },
                 ),
@@ -119,7 +124,7 @@ class Grade12Page extends StatelessWidget {
                       context,
                       MaterialPageRoute(
                           builder: (context) =>
-                              AgriculturalManagementPractices()),
+                              const AgriculturalManagementPractices()),
                     );
                   },
                 ),
@@ -133,7 +138,7 @@ class Grade12Page extends StatelessWidget {
                       context,
                       MaterialPageRoute(
                           builder: (context) =>
-                              AgriculturalTechnologyGrade12Page()),
+                              const AgriculturalTechnologyGrade12Page()),
                     );
                   },
                 ),
@@ -146,7 +151,8 @@ class Grade12Page extends StatelessWidget {
                     Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => BusinessStudiesGrade12Page()),
+                          builder: (context) =>
+                              const BusinessStudiesGrade12Page()),
                     );
                   },
                 ),
@@ -159,7 +165,8 @@ class Grade12Page extends StatelessWidget {
                     Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => CivilTechnologyGrade12Page()),
+                          builder: (context) =>
+                              const CivilTechnologyGrade12Page()),
                     );
                   },
                 ),
@@ -171,7 +178,8 @@ class Grade12Page extends StatelessWidget {
                   onPressed: () {
                     Navigator.pushReplacement(
                       context,
-                      MaterialPageRoute(builder: (context) => CATGrade12Page()),
+                      MaterialPageRoute(
+                          builder: (context) => const CATGrade12Page()),
                     );
                   },
                 ),
@@ -184,7 +192,8 @@ class Grade12Page extends StatelessWidget {
                     Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => ConsumerStudiesGrade12Page()),
+                          builder: (context) =>
+                              const ConsumerStudiesGrade12Page()),
                     );
                   },
                 ),
@@ -197,7 +206,8 @@ class Grade12Page extends StatelessWidget {
                     Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => DanceStudiesGrade12Page()),
+                          builder: (context) =>
+                              const DanceStudiesGrade12Page()),
                     );
                   },
                 ),
@@ -210,7 +220,7 @@ class Grade12Page extends StatelessWidget {
                     Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => DesignGrade12Page()),
+                          builder: (context) => const DesignGrade12Page()),
                     );
                   },
                 ),
@@ -223,7 +233,8 @@ class Grade12Page extends StatelessWidget {
                     Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => DramaticArtsGrade12Page()),
+                          builder: (context) =>
+                              const DramaticArtsGrade12Page()),
                     );
                   },
                 ),
@@ -236,7 +247,7 @@ class Grade12Page extends StatelessWidget {
                     Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => EconomicsGrade12Page()),
+                          builder: (context) => const EconomicsGrade12Page()),
                     );
                   },
                 ),
@@ -250,7 +261,7 @@ class Grade12Page extends StatelessWidget {
                       context,
                       MaterialPageRoute(
                           builder: (context) =>
-                              ElectricalTechnologyGrade12Page()),
+                              const ElectricalTechnologyGrade12Page()),
                     );
                   },
                 ),
@@ -262,7 +273,8 @@ class Grade12Page extends StatelessWidget {
                   onPressed: () {
                     Navigator.pushReplacement(
                       context,
-                      MaterialPageRoute(builder: (context) => EGDGrade12Page()),
+                      MaterialPageRoute(
+                          builder: (context) => const EGDGrade12Page()),
                     );
                   },
                 ),
@@ -275,7 +287,7 @@ class Grade12Page extends StatelessWidget {
                     Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => EnglishGrade12Page()),
+                          builder: (context) => const EnglishGrade12Page()),
                     );
                   },
                 ),
@@ -288,7 +300,7 @@ class Grade12Page extends StatelessWidget {
                     Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => GeographyGrade12Page()),
+                          builder: (context) => const GeographyGrade12Page()),
                     );
                   },
                 ),
@@ -301,7 +313,7 @@ class Grade12Page extends StatelessWidget {
                     Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => HistoryGrade12Page()),
+                          builder: (context) => const HistoryGrade12Page()),
                     );
                   },
                 ),
@@ -315,7 +327,7 @@ class Grade12Page extends StatelessWidget {
                       context,
                       MaterialPageRoute(
                           builder: (context) =>
-                              HospitalityStudiesGrade12Page()),
+                              const HospitalityStudiesGrade12Page()),
                     );
                   },
                 ),
@@ -327,7 +339,8 @@ class Grade12Page extends StatelessWidget {
                   onPressed: () {
                     Navigator.pushReplacement(
                       context,
-                      MaterialPageRoute(builder: (context) => ITGrade12Page()),
+                      MaterialPageRoute(
+                          builder: (context) => const ITGrade12Page()),
                     );
                   },
                 ),
@@ -340,7 +353,7 @@ class Grade12Page extends StatelessWidget {
                     Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => IsiNdebeleGrade12Page()),
+                          builder: (context) => const IsiNdebeleGrade12Page()),
                     );
                   },
                 ),
@@ -353,7 +366,7 @@ class Grade12Page extends StatelessWidget {
                     Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => IsiXhosaGrade12Page()),
+                          builder: (context) => const IsiXhosaGrade12Page()),
                     );
                   },
                 ),
@@ -366,7 +379,7 @@ class Grade12Page extends StatelessWidget {
                     Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => IsiZuluGrade12Page()),
+                          builder: (context) => const IsiZuluGrade12Page()),
                     );
                   },
                 ),
@@ -379,7 +392,8 @@ class Grade12Page extends StatelessWidget {
                     Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => LifeOrientationGrade12Page()),
+                          builder: (context) =>
+                              const LifeOrientationGrade12Page()),
                     );
                   },
                 ),
@@ -392,7 +406,8 @@ class Grade12Page extends StatelessWidget {
                     Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => LifeSciencesGrade12Page()),
+                          builder: (context) =>
+                              const LifeSciencesGrade12Page()),
                     );
                   },
                 ),
@@ -405,7 +420,8 @@ class Grade12Page extends StatelessWidget {
                     Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => MarineSciencesGrade12Page()),
+                          builder: (context) =>
+                              const MarineSciencesGrade12Page()),
                     );
                   },
                 ),
@@ -419,7 +435,7 @@ class Grade12Page extends StatelessWidget {
                       context,
                       MaterialPageRoute(
                           builder: (context) =>
-                              MathematicalLiteracyGrade12Page()),
+                              const MathematicalLiteracyGrade12Page()),
                     );
                   },
                 ),
@@ -432,7 +448,7 @@ class Grade12Page extends StatelessWidget {
                     Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => MathsGrade12Page()),
+                          builder: (context) => const MathsGrade12Page()),
                     );
                   },
                 ),
@@ -446,7 +462,7 @@ class Grade12Page extends StatelessWidget {
                       context,
                       MaterialPageRoute(
                           builder: (context) =>
-                              MechanicalTechnologyGrade12Page()),
+                              const MechanicalTechnologyGrade12Page()),
                     );
                   },
                 ),
@@ -459,7 +475,7 @@ class Grade12Page extends StatelessWidget {
                     Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => MusicGrade12Page()),
+                          builder: (context) => const MusicGrade12Page()),
                     );
                   },
                 ),
@@ -472,7 +488,8 @@ class Grade12Page extends StatelessWidget {
                     Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => PhysicalSciencesGrade12Page()),
+                          builder: (context) =>
+                              const PhysicalSciencesGrade12Page()),
                     );
                   },
                 ),
@@ -485,7 +502,8 @@ class Grade12Page extends StatelessWidget {
                     Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => ReligionStudiesGrade12Page()),
+                          builder: (context) =>
+                              const ReligionStudiesGrade12Page()),
                     );
                   },
                 ),
@@ -498,7 +516,7 @@ class Grade12Page extends StatelessWidget {
                     Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => SepediGrade12Page()),
+                          builder: (context) => const SepediGrade12Page()),
                     );
                   },
                 ),
@@ -511,7 +529,7 @@ class Grade12Page extends StatelessWidget {
                     Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => SesothoGrade12Page()),
+                          builder: (context) => const SesothoGrade12Page()),
                     );
                   },
                 ),
@@ -524,7 +542,7 @@ class Grade12Page extends StatelessWidget {
                     Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => SetswanaGrade12Page()),
+                          builder: (context) => const SetswanaGrade12Page()),
                     );
                   },
                 ),
@@ -537,7 +555,7 @@ class Grade12Page extends StatelessWidget {
                     Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => SiswatiGrade12Page()),
+                          builder: (context) => const SiswatiGrade12Page()),
                     );
                   },
                 ),
@@ -550,7 +568,7 @@ class Grade12Page extends StatelessWidget {
                     Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => SASLGrade12Page()),
+                          builder: (context) => const SASLGrade12Page()),
                     );
                   },
                 ),
@@ -563,7 +581,8 @@ class Grade12Page extends StatelessWidget {
                     Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => TechnicalMathsGrade12Page()),
+                          builder: (context) =>
+                              const TechnicalMathsGrade12Page()),
                     );
                   },
                 ),
@@ -576,7 +595,8 @@ class Grade12Page extends StatelessWidget {
                     Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => TechnicalScienceGrade12Page()),
+                          builder: (context) =>
+                              const TechnicalScienceGrade12Page()),
                     );
                   },
                 ),
@@ -589,7 +609,7 @@ class Grade12Page extends StatelessWidget {
                     Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => TourismGrade12Page()),
+                          builder: (context) => const TourismGrade12Page()),
                     );
                   },
                 ),
@@ -602,7 +622,7 @@ class Grade12Page extends StatelessWidget {
                     Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => TshivendaGrade12Page()),
+                          builder: (context) => const TshivendaGrade12Page()),
                     );
                   },
                 ),
@@ -615,7 +635,7 @@ class Grade12Page extends StatelessWidget {
                     Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => VisualArtsGrade12Page()),
+                          builder: (context) => const VisualArtsGrade12Page()),
                     );
                   },
                 ),
@@ -628,7 +648,7 @@ class Grade12Page extends StatelessWidget {
                     Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => XitsongaGrade12Page()),
+                          builder: (context) => const XitsongaGrade12Page()),
                     );
                   },
                 ),

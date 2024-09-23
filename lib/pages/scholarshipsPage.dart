@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:funding/pages/landing_page.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -229,6 +230,15 @@ class _HomepageState extends State<Homepage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back, color: Colors.white),
+          onPressed: () {
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(builder: (context) => const LandingPage()),
+            );
+          },
+        ),
         title: const Text("Scholarships and Bursaries"),
         backgroundColor: Colors.teal,
         centerTitle: true,

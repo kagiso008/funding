@@ -4,7 +4,6 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:flutter_pdfview/flutter_pdfview.dart';
 import 'package:path_provider/path_provider.dart';
 import 'dart:io';
-import 'package:funding/grades/grade12.dart';
 
 class VisualCultureStudiesGrade12Page extends StatefulWidget {
   const VisualCultureStudiesGrade12Page({super.key});
@@ -70,102 +69,6 @@ class _VisualCultureStudiesGrade12PageState
     }
   }
 
-  // Helper method to sort PDFs by P1, P2, P3
-  List<FileObject> _sortByPaper(List<FileObject> files, String paper) {
-    return files
-        .where((file) => file.name.toLowerCase().contains(paper))
-        .toList()
-      ..sort((a, b) => a.name.compareTo(b.name));
-  }
-
-  // Method to build PDF list by sorting them into P1, P2, and P3
-  Widget _buildPDFListByPaper(List<FileObject> files, String categoryTitle) {
-    if (files.isEmpty) {
-      return const SizedBox.shrink();
-    }
-
-    final p1Files = _sortByPaper(files, 'p1');
-    final p2Files = _sortByPaper(files, 'p2');
-    final p3Files = _sortByPaper(files, 'p3');
-
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Text(
-            categoryTitle,
-            style: const TextStyle(
-              fontSize: 20,
-              fontWeight: FontWeight.bold,
-              color: Colors.teal,
-            ),
-          ),
-        ),
-        if (p1Files.isNotEmpty) _buildPaperSection('Paper 1 (P1)', p1Files),
-        if (p2Files.isNotEmpty) _buildPaperSection('Paper 2 (P2)', p2Files),
-        if (p3Files.isNotEmpty) _buildPaperSection('Paper 3 (P3)', p3Files),
-      ],
-    );
-  }
-
-  // Widget to build a section for each paper type (P1, P2, P3)
-  Widget _buildPaperSection(String paperTitle, List<FileObject> files) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-          child: Text(
-            paperTitle,
-            style: const TextStyle(
-              fontSize: 18,
-              fontWeight: FontWeight.bold,
-              color: Colors.black87,
-            ),
-          ),
-        ),
-        ListView.builder(
-          shrinkWrap: true,
-          physics: const NeverScrollableScrollPhysics(),
-          itemCount: files.length,
-          itemBuilder: (context, index) {
-            final file = files[index];
-            return Card(
-              margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 16),
-              color: Colors.teal,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(15),
-              ),
-              child: ListTile(
-                leading: const Icon(
-                  Icons.picture_as_pdf,
-                  color: Colors.redAccent,
-                  size: 40,
-                ),
-                title: Text(
-                  file.name,
-                  style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                trailing: IconButton(
-                  icon: const Icon(
-                    Icons.arrow_forward_ios,
-                    color: Colors.white,
-                  ),
-                  onPressed: () => _openPDF(file.name),
-                ),
-              ),
-            );
-          },
-        ),
-      ],
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -190,14 +93,44 @@ class _VisualCultureStudiesGrade12PageState
       ),
       body: pdfFiles.isEmpty
           ? const Center(child: CircularProgressIndicator())
-          : SingleChildScrollView(
-              child: Column(
-                children: [
-                  _buildPDFListByPaper(
-                      pdfFiles, 'VisualCultureStudies Grade 12 Papers'),
-                ],
-              ),
+          : ListView.builder(
+              itemCount: pdfFiles.length,
+              itemBuilder: (context, index) {
+                return _buildPDFCard(pdfFiles[index]);
+              },
             ),
+    );
+  }
+
+  Widget _buildPDFCard(FileObject file) {
+    return Card(
+      margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 16),
+      color: Colors.teal,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(15),
+      ),
+      child: ListTile(
+        leading: const Icon(
+          Icons.picture_as_pdf,
+          color: Colors.redAccent,
+          size: 40,
+        ),
+        title: Text(
+          file.name,
+          style: const TextStyle(
+            color: Colors.white,
+            fontSize: 18,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        trailing: IconButton(
+          icon: const Icon(
+            Icons.arrow_forward_ios,
+            color: Colors.white,
+          ),
+          onPressed: () => _openPDF(file.name),
+        ),
+      ),
     );
   }
 }

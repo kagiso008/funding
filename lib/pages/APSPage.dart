@@ -23,6 +23,7 @@ import 'package:funding/aps_calculators/uct_aps.dart';
 import 'package:funding/aps_calculators/univen_aps.dart';
 import 'package:funding/aps_calculators/ufh_aps.dart';
 import 'package:funding/aps_calculators/vut_aps.dart';
+import 'package:funding/pages/landing_page.dart';
 
 class UniversityLandingPage extends StatelessWidget {
   const UniversityLandingPage({super.key});
@@ -30,6 +31,21 @@ class UniversityLandingPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back, color: Colors.white),
+          onPressed: () {
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(builder: (context) => const LandingPage()),
+            );
+          },
+        ),
+        title: const Text("South African Universities"),
+        backgroundColor: Colors.teal,
+        centerTitle: true,
+        elevation: 0,
+      ),
       backgroundColor: Colors.white,
       body: SafeArea(
         child: Padding(
@@ -40,15 +56,6 @@ class UniversityLandingPage extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 // Header text
-                const Text(
-                  'South African Universities',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontSize: 32,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.teal,
-                  ),
-                ),
                 const SizedBox(height: 30),
 
                 // University of Johannesburg button

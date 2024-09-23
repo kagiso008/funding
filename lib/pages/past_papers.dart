@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:funding/grades/grade10.dart';
 import 'package:funding/grades/grade11.dart';
 import 'package:funding/grades/grade12home.dart';
+import 'package:funding/pages/landing_page.dart';
 
 class PastPapers extends StatelessWidget {
   const PastPapers({super.key});
@@ -9,6 +10,21 @@ class PastPapers extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back, color: Colors.white),
+          onPressed: () {
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(builder: (context) => const LandingPage()),
+            );
+          },
+        ),
+        title: const Text("GRADES"),
+        backgroundColor: Colors.teal,
+        centerTitle: true,
+        elevation: 0,
+      ),
       backgroundColor: Colors.white,
       body: SafeArea(
         child: Padding(
@@ -17,17 +33,6 @@ class PastPapers extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              // Header text
-              const Text(
-                'GRADES',
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontSize: 32,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.teal,
-                ),
-              ),
-
               const SizedBox(height: 50),
               _buildCustomButton(
                 label: 'Grade 12',
@@ -51,7 +56,8 @@ class PastPapers extends StatelessWidget {
                   // Navigate to Homepage
                   Navigator.pushReplacement(
                     context,
-                    MaterialPageRoute(builder: (context) => Grade11Page()),
+                    MaterialPageRoute(
+                        builder: (context) => const Grade11Page()),
                   );
                 },
               ),
@@ -64,7 +70,8 @@ class PastPapers extends StatelessWidget {
                   // Navigate to Homepage
                   Navigator.pushReplacement(
                     context,
-                    MaterialPageRoute(builder: (context) => Grade10Page()),
+                    MaterialPageRoute(
+                        builder: (context) => const Grade10Page()),
                   );
                 },
               ),

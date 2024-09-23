@@ -31,7 +31,7 @@ class _TechnicalScienceGrade12PageState
       // Specify the path to the "Mathematics" folder within "grade12"
       final List<FileObject> objects = await supabase.storage
           .from('pdfs')
-          .list(path: 'grade_12/IEB/TechnicalSciences');
+          .list(path: 'grade_12/IEB/TechnicalScience');
 
       setState(() {
         // Filter out only PDF files and categorize them into P1 and P2
@@ -51,7 +51,7 @@ class _TechnicalScienceGrade12PageState
   Future<File?> _downloadPDF(String fileName) async {
     try {
       // Full path including folder and file name
-      final String path = 'grade_12/IEB/TechnicalSciences/$fileName';
+      final String path = 'grade_12/IEB/TechnicalScience/$fileName';
       final response = await supabase.storage.from('pdfs').download(path);
 
       if (response.isNotEmpty) {
@@ -115,7 +115,7 @@ class _TechnicalScienceGrade12PageState
                           TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                     ),
                   ),
-                  ...p1Files.map((file) => _buildPDFCard(file)).toList(),
+                  ...p1Files.map((file) => _buildPDFCard(file)),
                 ],
                 if (p2Files.isNotEmpty) ...[
                   const Padding(
@@ -126,7 +126,7 @@ class _TechnicalScienceGrade12PageState
                           TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                     ),
                   ),
-                  ...p2Files.map((file) => _buildPDFCard(file)).toList(),
+                  ...p2Files.map((file) => _buildPDFCard(file)),
                 ],
               ],
             ),

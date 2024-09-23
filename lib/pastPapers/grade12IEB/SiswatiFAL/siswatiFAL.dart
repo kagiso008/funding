@@ -4,7 +4,6 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:flutter_pdfview/flutter_pdfview.dart';
 import 'package:path_provider/path_provider.dart';
 import 'dart:io';
-import 'package:funding/grades/grade12.dart';
 
 class SiswatiFALGrade12Page extends StatefulWidget {
   const SiswatiFALGrade12Page({super.key});
@@ -29,7 +28,7 @@ class _SiswatiFALGrade12PageState extends State<SiswatiFALGrade12Page> {
   Future<void> _fetchPDFFiles() async {
     try {
       final List<FileObject> objects =
-          await supabase.storage.from('pdfs').list(path: 'grade_12/SiswatiFAL');
+          await supabase.storage.from('pdfs').list(path: 'grade_12/IEB/SiswatiFAL');
 
       setState(() {
         pdfFiles = objects.where((file) => file.name.endsWith('.pdf')).toList();
@@ -57,7 +56,7 @@ class _SiswatiFALGrade12PageState extends State<SiswatiFALGrade12Page> {
 
   Future<File?> _downloadPDF(String fileName) async {
     try {
-      final String path = 'grade_12/SiswatiFAL/$fileName';
+      final String path = 'grade_12/IEB/SiswatiFAL/$fileName';
       final response = await supabase.storage.from('pdfs').download(path);
 
       if (response.isNotEmpty) {
@@ -214,7 +213,7 @@ class _SiswatiFALGrade12PageState extends State<SiswatiFALGrade12Page> {
             const Padding(
               padding: EdgeInsets.all(16.0),
               child: Text(
-                'SiswatiFAL Grade 12 Papers',
+                'Siswati FAL Grade 12 Papers',
                 style: TextStyle(
                   fontSize: 24,
                   fontWeight: FontWeight.bold,

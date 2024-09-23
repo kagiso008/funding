@@ -3,6 +3,7 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:flutter_pdfview/flutter_pdfview.dart';
 import 'package:path_provider/path_provider.dart';
 import 'dart:io';
+import 'package:funding/grades/grade12IEB.dart';
 
 class BusinessStudiesGrade12Page extends StatefulWidget {
   const BusinessStudiesGrade12Page({super.key});
@@ -25,16 +26,36 @@ class _BusinessStudiesGrade12PageState
 
   Future<void> _fetchPDFFiles() async {
     try {
+      // Specify the path to the folder
       final List<FileObject> objects = await supabase.storage
           .from('pdfs')
           .list(path: 'grade_12/IEB/BusinessStudies');
 
       setState(() {
+        // Filter only PDF files
         pdfFiles = objects.where((file) => file.name.endsWith('.pdf')).toList();
+
+        // Sort the files by year extracted from the file name
+        pdfFiles.sort((a, b) {
+          final yearA = _extractYear(a.name);
+          final yearB = _extractYear(b.name);
+          return yearA.compareTo(yearB);
+        });
       });
     } catch (e) {
       print('Error fetching files: $e');
     }
+  }
+
+// Function to extract the year from the file name (assuming the format includes the year)
+  int _extractYear(String fileName) {
+    final RegExp yearRegExp = RegExp(r'\d{4}');
+    final match = yearRegExp.firstMatch(fileName);
+    if (match != null) {
+      return int.parse(match.group(0)!);
+    }
+    // Default year if no year found in the name
+    return 0;
   }
 
   Future<File?> _downloadPDF(String fileName) async {
@@ -83,7 +104,10 @@ class _BusinessStudiesGrade12PageState
         leading: IconButton(
           icon: const Icon(Icons.arrow_back, color: Colors.white),
           onPressed: () {
-            Navigator.pop(context);
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(builder: (context) => const Grade12IEBPage()),
+            );
           },
         ),
       ),
@@ -158,6 +182,15 @@ class _PDFViewPageState extends State<PDFViewPage> {
           style: TextStyle(
             color: Colors.white,
           ),
+        ),
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back, color: Colors.white),
+          onPressed: () {
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(builder: (context) => const Grade12IEBPage()),
+            );
+          },
         ),
       ),
       body: Stack(

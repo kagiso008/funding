@@ -29,7 +29,7 @@ class _TeleguSALGrade12PageState extends State<TeleguSALGrade12Page> {
       // Specify the path to the "Mathematics" folder within "grade12"
       final List<FileObject> objects = await supabase.storage
           .from('pdfs')
-          .list(path: 'grade_12/IEB/TeleguSAL');
+          .list(path: 'grade_12/IEB/TeluguSAL');
 
       setState(() {
         // Filter out only PDF files and categorize them into P1 and P2
@@ -49,7 +49,7 @@ class _TeleguSALGrade12PageState extends State<TeleguSALGrade12Page> {
   Future<File?> _downloadPDF(String fileName) async {
     try {
       // Full path including folder and file name
-      final String path = 'grade_12/IEB/TeleguSAL/$fileName';
+      final String path = 'grade_12/IEB/TeluguSAL/$fileName';
       final response = await supabase.storage.from('pdfs').download(path);
 
       if (response.isNotEmpty) {
@@ -84,7 +84,7 @@ class _TeleguSALGrade12PageState extends State<TeleguSALGrade12Page> {
       appBar: AppBar(
         backgroundColor: Colors.teal,
         title: const Text(
-          'TECHNICAL MATHS PAPERS',
+          'TELUGU SAL PAPERS',
           style: TextStyle(
             color: Colors.white,
             fontWeight: FontWeight.bold,
@@ -113,7 +113,7 @@ class _TeleguSALGrade12PageState extends State<TeleguSALGrade12Page> {
                           TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                     ),
                   ),
-                  ...p1Files.map((file) => _buildPDFCard(file)).toList(),
+                  ...p1Files.map((file) => _buildPDFCard(file)),
                 ],
                 if (p2Files.isNotEmpty) ...[
                   const Padding(
@@ -124,7 +124,7 @@ class _TeleguSALGrade12PageState extends State<TeleguSALGrade12Page> {
                           TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                     ),
                   ),
-                  ...p2Files.map((file) => _buildPDFCard(file)).toList(),
+                  ...p2Files.map((file) => _buildPDFCard(file)),
                 ],
               ],
             ),

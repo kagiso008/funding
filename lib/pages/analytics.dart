@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:funding/pages/landing_page.dart';
 
 class AnalyticsPage extends StatefulWidget {
   const AnalyticsPage({super.key});
@@ -136,6 +137,15 @@ class _AnalyticsPageState extends State<AnalyticsPage> {
       appBar: AppBar(
         title: const Text('Analytics'),
         backgroundColor: Colors.teal,
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back, color: Colors.white),
+          onPressed: () {
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(builder: (context) => const LandingPage()),
+            );
+          },
+        ),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -156,8 +166,8 @@ class _AnalyticsPageState extends State<AnalyticsPage> {
                   children: [
                     _buildTable('Daily Entry Counts', _dataTable1,
                         ['day', 'entry_count']),
-                    _buildTable('Most Frequent Average', _dataTable2,
-                        ['average']),
+                    _buildTable(
+                        'Most Frequent Average', _dataTable2, ['average']),
                     _buildTable('Subject Counts', _dataTable3, [
                       'mathematics_count',
                       'english_count',
@@ -173,7 +183,8 @@ class _AnalyticsPageState extends State<AnalyticsPage> {
               child: ElevatedButton(
                 onPressed: _fetchData,
                 style: ElevatedButton.styleFrom(
-                  padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 15),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 30, vertical: 15),
                   backgroundColor: Colors.teal,
                   textStyle: const TextStyle(
                     fontSize: 16,

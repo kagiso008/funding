@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:funding/pages/homepage.dart';
 import 'package:funding/pages/login_page.dart'; // Assuming you have a login page
 import 'package:supabase_flutter/supabase_flutter.dart';
-import 'package:funding/pages/analytics.dart';
 import 'package:funding/grades/grade12.dart';
 import 'package:funding/grades/grade12IEB.dart';
+import 'package:funding/pages/past_papers.dart';
 
 class Grade12HomePage extends StatelessWidget {
   const Grade12HomePage({super.key});
@@ -12,6 +11,21 @@ class Grade12HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back, color: Colors.white),
+          onPressed: () {
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(builder: (context) => const PastPapers()),
+            );
+          },
+        ),
+        title: const Text("GRADE 12 Curriculums"),
+        backgroundColor: Colors.teal,
+        centerTitle: true,
+        elevation: 0,
+      ),
       backgroundColor: Colors.white,
       body: SafeArea(
         child: Padding(
@@ -20,16 +34,6 @@ class Grade12HomePage extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              // Header text
-              const Text(
-                'GRADE 12 Curriculums',
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontSize: 32,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.teal,
-                ),
-              ),
               const SizedBox(height: 30),
 
               // Button to View National Senior Certificate

@@ -4,7 +4,6 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:flutter_pdfview/flutter_pdfview.dart';
 import 'package:path_provider/path_provider.dart';
 import 'dart:io';
-import 'package:funding/grades/grade12.dart';
 
 class IsiXhosaFALGrade12Page extends StatefulWidget {
   const IsiXhosaFALGrade12Page({super.key});
@@ -215,7 +214,7 @@ class _IsiXhosaFALGrade12PageState extends State<IsiXhosaFALGrade12Page> {
             const Padding(
               padding: EdgeInsets.all(16.0),
               child: Text(
-                'IsiXhosaFAL Grade 12 Papers',
+                'IsiXhosa FAL Grade 12 Papers',
                 style: TextStyle(
                   fontSize: 24,
                   fontWeight: FontWeight.bold,
@@ -224,9 +223,7 @@ class _IsiXhosaFALGrade12PageState extends State<IsiXhosaFALGrade12Page> {
               ),
             ),
             // Build lists for HL, FAL, and SAL sorted by P1, P2, P3
-            _buildPDFListByPaper(hlFiles, 'Home Language (HL)'),
             _buildPDFListByPaper(falFiles, 'First Additional Language (FAL)'),
-            _buildPDFListByPaper(salFiles, 'Second Additional Language (SAL)'),
           ],
         ),
       ),

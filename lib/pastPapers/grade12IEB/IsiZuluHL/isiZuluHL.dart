@@ -4,7 +4,6 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:flutter_pdfview/flutter_pdfview.dart';
 import 'package:path_provider/path_provider.dart';
 import 'dart:io';
-import 'package:funding/grades/grade12.dart';
 
 class IsiZuluHLGrade12Page extends StatefulWidget {
   const IsiZuluHLGrade12Page({super.key});
@@ -30,7 +29,7 @@ class _IsiZuluHLGrade12PageState extends State<IsiZuluHLGrade12Page> {
     try {
       final List<FileObject> objects = await supabase.storage
           .from('pdfs')
-          .list(path: 'grade_12/IEB/IsiZuluHL');
+          .list(path: 'grade_12/IEB/IsiZuluHomeLanguage');
 
       setState(() {
         pdfFiles = objects.where((file) => file.name.endsWith('.pdf')).toList();
@@ -58,7 +57,7 @@ class _IsiZuluHLGrade12PageState extends State<IsiZuluHLGrade12Page> {
 
   Future<File?> _downloadPDF(String fileName) async {
     try {
-      final String path = 'grade_12/IEB/IsiZuluHL/$fileName';
+      final String path = 'grade_12/IEB/IsiZuluHomeLanguage/$fileName';
       final response = await supabase.storage.from('pdfs').download(path);
 
       if (response.isNotEmpty) {
@@ -215,7 +214,7 @@ class _IsiZuluHLGrade12PageState extends State<IsiZuluHLGrade12Page> {
             const Padding(
               padding: EdgeInsets.all(16.0),
               child: Text(
-                'IsiZuluHL Grade 12 Papers',
+                'IsiZulu HL Grade 12 Papers',
                 style: TextStyle(
                   fontSize: 24,
                   fontWeight: FontWeight.bold,
@@ -225,8 +224,6 @@ class _IsiZuluHLGrade12PageState extends State<IsiZuluHLGrade12Page> {
             ),
             // Build lists for HL, FAL, and SAL sorted by P1, P2, P3
             _buildPDFListByPaper(hlFiles, 'Home Language (HL)'),
-            _buildPDFListByPaper(falFiles, 'First Additional Language (FAL)'),
-            _buildPDFListByPaper(salFiles, 'Second Additional Language (SAL)'),
           ],
         ),
       ),

@@ -11,36 +11,6 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   final _phoneController = TextEditingController();
   final _passwordController = TextEditingController();
-  final _formKey = GlobalKey<FormState>();
-  bool _isLoading = false;
-
-  Future<void> _signUpWithPhone() async {
-    final phone = _phoneController.text.trim();
-    final password = _passwordController.text.trim();
-
-    if (phone.isEmpty || password.isEmpty) {
-      _showError('Please fill in all fields');
-      return;
-    }
-
-    setState(() {
-      _isLoading = true;
-    });
-
-    try {
-      final response = await Supabase.instance.client.auth.signUp(
-        phone: phone,
-        password: password,
-      );
-      _showError("Signup successful! Please check your messages.");
-    } catch (e) {
-      _showError('Unexpected error occurred');
-    } finally {
-      setState(() {
-        _isLoading = false;
-      });
-    }
-  }
 
   void _showError(String message) {
     ScaffoldMessenger.of(context).showSnackBar(
@@ -51,90 +21,71 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
+  Future<void> _loginWithPhone() async {
+    final phone = _phoneController.text.trim();
+    final password = _passwordController.text.trim();
+
+    if (phone.isEmpty || password.isEmpty) {
+      _showError('Please fill in all fields');
+      return;
+    }
+
+    try {
+      final response = await Supabase.instance.client.auth.signInWithPassword(
+        phone: phone,
+        password: password,
+      );
+
+      if (response != null) {
+        // _showError(response);
+      } else {
+        _showError('Login successful!');
+        // Handle successful login (e.g., navigate to home page)
+      }
+    } catch (e) {
+      _showError('Unexpected error occurred');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Sign Up'),
+        title: const Text('Login with Phone'),
         backgroundColor: Colors.teal,
       ),
-      body: Container(
+      body: Padding(
         padding: const EdgeInsets.all(16.0),
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            colors: [Colors.teal[300]!, const Color.fromARGB(255, 255, 255, 255)!],
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-          ),
-        ),
-        child: Center(
-          child: AnimatedContainer(
-            duration: const Duration(milliseconds: 300),
-            padding: const EdgeInsets.all(16.0),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(12),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.black26,
-                  blurRadius: 10,
-                  offset: Offset(0, 4),
-                ),
-              ],
+        child: Column(
+          children: [
+            TextField(
+              controller: _phoneController,
+              decoration: const InputDecoration(
+                labelText: 'Phone Number',
+                border: OutlineInputBorder(),
+              ),
+              keyboardType: TextInputType.phone,
             ),
-            child: Form(
-              key: _formKey,
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  TextFormField(
-                    controller: _phoneController,
-                    decoration: InputDecoration(
-                      labelText: 'Phone Number',
-                      border: OutlineInputBorder(),
-                    ),
-                    keyboardType: TextInputType.phone,
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Please enter your phone number';
-                      }
-                      return null;
-                    },
-                  ),
-                  const SizedBox(height: 16),
-                  TextFormField(
-                    controller: _passwordController,
-                    decoration: InputDecoration(
-                      labelText: 'Password',
-                      border: OutlineInputBorder(),
-                    ),
-                    obscureText: true,
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Please enter your password';
-                      }
-                      return null;
-                    },
-                  ),
-                  const SizedBox(height: 16),
-                  ElevatedButton(
-                    onPressed: _isLoading ? null : _signUpWithPhone,
-                    child: _isLoading
-                        ? CircularProgressIndicator(
-                            valueColor:
-                                AlwaysStoppedAnimation<Color>(Colors.white),
-                          )
-                        : const Text('Sign Up'),
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.teal,
-                      padding: const EdgeInsets.symmetric(vertical: 16),
-                      textStyle: const TextStyle(fontSize: 18),
-                    ),
-                  ),
-                ],
+            const SizedBox(height: 16),
+            TextField(
+              controller: _passwordController,
+              decoration: const InputDecoration(
+                labelText: 'Password',
+                border: OutlineInputBorder(),
+              ),
+              obscureText: true,
+            ),
+            const SizedBox(height: 16),
+            ElevatedButton(
+              onPressed: _loginWithPhone,
+              child: const Text('Login'),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.teal,
+                padding: const EdgeInsets.symmetric(vertical: 16),
+                textStyle: const TextStyle(fontSize: 18),
               ),
             ),
-          ),
+          ],
         ),
       ),
     );

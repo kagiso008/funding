@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:funding/grades/grade10.dart';
-import 'package:funding/grades/grade11.dart';
+import 'package:funding/grades/grade10home.dart';
+import 'package:funding/grades/grade11home.dart';
 import 'package:funding/grades/grade12home.dart';
 import 'package:funding/pages/landing_page.dart';
 
@@ -57,7 +57,7 @@ class PastPapers extends StatelessWidget {
                   Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => const Grade11Page()),
+                        builder: (context) => const Grade11HomePage()),
                   );
                 },
               ),
@@ -71,7 +71,7 @@ class PastPapers extends StatelessWidget {
                   Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => const Grade10Page()),
+                        builder: (context) => const Grade10HomePage()),
                   );
                 },
               ),

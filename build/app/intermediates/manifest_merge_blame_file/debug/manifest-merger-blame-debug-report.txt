@@ -54,20 +54,20 @@
 38-->[:file_picker] /Users/kagiso/Desktop/funding/build/file_picker/intermediates/merged_manifest/debug/AndroidManifest.xml:11:9-35
 39
 40    <permission
-40-->[androidx.core:core:1.13.1] /Users/kagiso/.gradle/caches/transforms-3/2f6a5506f4dac22f7ab67b13b215ea43/transformed/core-1.13.1/AndroidManifest.xml:22:5-24:47
+40-->[androidx.core:core:1.13.1] /Users/kagiso/.gradle/caches/transforms-3/e4547c8f0c5d3a7953c74925c4d00586/transformed/core-1.13.1/AndroidManifest.xml:22:5-24:47
 41        android:name="com.example.funding.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
-41-->[androidx.core:core:1.13.1] /Users/kagiso/.gradle/caches/transforms-3/2f6a5506f4dac22f7ab67b13b215ea43/transformed/core-1.13.1/AndroidManifest.xml:23:9-81
+41-->[androidx.core:core:1.13.1] /Users/kagiso/.gradle/caches/transforms-3/e4547c8f0c5d3a7953c74925c4d00586/transformed/core-1.13.1/AndroidManifest.xml:23:9-81
 42        android:protectionLevel="signature" />
-42-->[androidx.core:core:1.13.1] /Users/kagiso/.gradle/caches/transforms-3/2f6a5506f4dac22f7ab67b13b215ea43/transformed/core-1.13.1/AndroidManifest.xml:24:9-44
+42-->[androidx.core:core:1.13.1] /Users/kagiso/.gradle/caches/transforms-3/e4547c8f0c5d3a7953c74925c4d00586/transformed/core-1.13.1/AndroidManifest.xml:24:9-44
 43
 44    <uses-permission android:name="com.example.funding.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION" />
-44-->[androidx.core:core:1.13.1] /Users/kagiso/.gradle/caches/transforms-3/2f6a5506f4dac22f7ab67b13b215ea43/transformed/core-1.13.1/AndroidManifest.xml:26:5-97
-44-->[androidx.core:core:1.13.1] /Users/kagiso/.gradle/caches/transforms-3/2f6a5506f4dac22f7ab67b13b215ea43/transformed/core-1.13.1/AndroidManifest.xml:26:22-94
+44-->[androidx.core:core:1.13.1] /Users/kagiso/.gradle/caches/transforms-3/e4547c8f0c5d3a7953c74925c4d00586/transformed/core-1.13.1/AndroidManifest.xml:26:5-97
+44-->[androidx.core:core:1.13.1] /Users/kagiso/.gradle/caches/transforms-3/e4547c8f0c5d3a7953c74925c4d00586/transformed/core-1.13.1/AndroidManifest.xml:26:22-94
 45
 46    <application
 47        android:name="android.app.Application"
 48        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
-48-->[androidx.core:core:1.13.1] /Users/kagiso/.gradle/caches/transforms-3/2f6a5506f4dac22f7ab67b13b215ea43/transformed/core-1.13.1/AndroidManifest.xml:28:18-86
+48-->[androidx.core:core:1.13.1] /Users/kagiso/.gradle/caches/transforms-3/e4547c8f0c5d3a7953c74925c4d00586/transformed/core-1.13.1/AndroidManifest.xml:28:18-86
 49        android:debuggable="true"
 50        android:icon="@mipmap/ic_launcher"
 51        android:label="funding" >
@@ -146,81 +146,81 @@
 110-->[:url_launcher_android] /Users/kagiso/Desktop/funding/build/url_launcher_android/intermediates/merged_manifest/debug/AndroidManifest.xml:13:13-71
 111
 112        <uses-library
-112-->[androidx.window:window:1.0.0-beta04] /Users/kagiso/.gradle/caches/transforms-3/f302e75fb7efd781bcf1a29281c188da/transformed/jetified-window-1.0.0-beta04/AndroidManifest.xml:25:9-27:40
+112-->[androidx.window:window:1.0.0-beta04] /Users/kagiso/.gradle/caches/transforms-3/52ef1e0113dddd55db3c0607c58533e9/transformed/jetified-window-1.0.0-beta04/AndroidManifest.xml:25:9-27:40
 113            android:name="androidx.window.extensions"
-113-->[androidx.window:window:1.0.0-beta04] /Users/kagiso/.gradle/caches/transforms-3/f302e75fb7efd781bcf1a29281c188da/transformed/jetified-window-1.0.0-beta04/AndroidManifest.xml:26:13-54
+113-->[androidx.window:window:1.0.0-beta04] /Users/kagiso/.gradle/caches/transforms-3/52ef1e0113dddd55db3c0607c58533e9/transformed/jetified-window-1.0.0-beta04/AndroidManifest.xml:26:13-54
 114            android:required="false" />
-114-->[androidx.window:window:1.0.0-beta04] /Users/kagiso/.gradle/caches/transforms-3/f302e75fb7efd781bcf1a29281c188da/transformed/jetified-window-1.0.0-beta04/AndroidManifest.xml:27:13-37
+114-->[androidx.window:window:1.0.0-beta04] /Users/kagiso/.gradle/caches/transforms-3/52ef1e0113dddd55db3c0607c58533e9/transformed/jetified-window-1.0.0-beta04/AndroidManifest.xml:27:13-37
 115        <uses-library
-115-->[androidx.window:window:1.0.0-beta04] /Users/kagiso/.gradle/caches/transforms-3/f302e75fb7efd781bcf1a29281c188da/transformed/jetified-window-1.0.0-beta04/AndroidManifest.xml:28:9-30:40
+115-->[androidx.window:window:1.0.0-beta04] /Users/kagiso/.gradle/caches/transforms-3/52ef1e0113dddd55db3c0607c58533e9/transformed/jetified-window-1.0.0-beta04/AndroidManifest.xml:28:9-30:40
 116            android:name="androidx.window.sidecar"
-116-->[androidx.window:window:1.0.0-beta04] /Users/kagiso/.gradle/caches/transforms-3/f302e75fb7efd781bcf1a29281c188da/transformed/jetified-window-1.0.0-beta04/AndroidManifest.xml:29:13-51
+116-->[androidx.window:window:1.0.0-beta04] /Users/kagiso/.gradle/caches/transforms-3/52ef1e0113dddd55db3c0607c58533e9/transformed/jetified-window-1.0.0-beta04/AndroidManifest.xml:29:13-51
 117            android:required="false" />
-117-->[androidx.window:window:1.0.0-beta04] /Users/kagiso/.gradle/caches/transforms-3/f302e75fb7efd781bcf1a29281c188da/transformed/jetified-window-1.0.0-beta04/AndroidManifest.xml:30:13-37
+117-->[androidx.window:window:1.0.0-beta04] /Users/kagiso/.gradle/caches/transforms-3/52ef1e0113dddd55db3c0607c58533e9/transformed/jetified-window-1.0.0-beta04/AndroidManifest.xml:30:13-37
 118
 119        <provider
-119-->[androidx.emoji2:emoji2:1.2.0] /Users/kagiso/.gradle/caches/transforms-3/fd5566ded44aaffd1a50ecce95aa3bb6/transformed/jetified-emoji2-1.2.0/AndroidManifest.xml:24:9-32:20
+119-->[androidx.emoji2:emoji2:1.2.0] /Users/kagiso/.gradle/caches/transforms-3/6d8bb093e7224306ef83604e64875434/transformed/jetified-emoji2-1.2.0/AndroidManifest.xml:24:9-32:20
 120            android:name="androidx.startup.InitializationProvider"
-120-->[androidx.emoji2:emoji2:1.2.0] /Users/kagiso/.gradle/caches/transforms-3/fd5566ded44aaffd1a50ecce95aa3bb6/transformed/jetified-emoji2-1.2.0/AndroidManifest.xml:25:13-67
+120-->[androidx.emoji2:emoji2:1.2.0] /Users/kagiso/.gradle/caches/transforms-3/6d8bb093e7224306ef83604e64875434/transformed/jetified-emoji2-1.2.0/AndroidManifest.xml:25:13-67
 121            android:authorities="com.example.funding.androidx-startup"
-121-->[androidx.emoji2:emoji2:1.2.0] /Users/kagiso/.gradle/caches/transforms-3/fd5566ded44aaffd1a50ecce95aa3bb6/transformed/jetified-emoji2-1.2.0/AndroidManifest.xml:26:13-68
+121-->[androidx.emoji2:emoji2:1.2.0] /Users/kagiso/.gradle/caches/transforms-3/6d8bb093e7224306ef83604e64875434/transformed/jetified-emoji2-1.2.0/AndroidManifest.xml:26:13-68
 122            android:exported="false" >
-122-->[androidx.emoji2:emoji2:1.2.0] /Users/kagiso/.gradle/caches/transforms-3/fd5566ded44aaffd1a50ecce95aa3bb6/transformed/jetified-emoji2-1.2.0/AndroidManifest.xml:27:13-37
+122-->[androidx.emoji2:emoji2:1.2.0] /Users/kagiso/.gradle/caches/transforms-3/6d8bb093e7224306ef83604e64875434/transformed/jetified-emoji2-1.2.0/AndroidManifest.xml:27:13-37
 123            <meta-data
-123-->[androidx.emoji2:emoji2:1.2.0] /Users/kagiso/.gradle/caches/transforms-3/fd5566ded44aaffd1a50ecce95aa3bb6/transformed/jetified-emoji2-1.2.0/AndroidManifest.xml:29:13-31:52
+123-->[androidx.emoji2:emoji2:1.2.0] /Users/kagiso/.gradle/caches/transforms-3/6d8bb093e7224306ef83604e64875434/transformed/jetified-emoji2-1.2.0/AndroidManifest.xml:29:13-31:52
 124                android:name="androidx.emoji2.text.EmojiCompatInitializer"
-124-->[androidx.emoji2:emoji2:1.2.0] /Users/kagiso/.gradle/caches/transforms-3/fd5566ded44aaffd1a50ecce95aa3bb6/transformed/jetified-emoji2-1.2.0/AndroidManifest.xml:30:17-75
+124-->[androidx.emoji2:emoji2:1.2.0] /Users/kagiso/.gradle/caches/transforms-3/6d8bb093e7224306ef83604e64875434/transformed/jetified-emoji2-1.2.0/AndroidManifest.xml:30:17-75
 125                android:value="androidx.startup" />
-125-->[androidx.emoji2:emoji2:1.2.0] /Users/kagiso/.gradle/caches/transforms-3/fd5566ded44aaffd1a50ecce95aa3bb6/transformed/jetified-emoji2-1.2.0/AndroidManifest.xml:31:17-49
+125-->[androidx.emoji2:emoji2:1.2.0] /Users/kagiso/.gradle/caches/transforms-3/6d8bb093e7224306ef83604e64875434/transformed/jetified-emoji2-1.2.0/AndroidManifest.xml:31:17-49
 126            <meta-data
-126-->[androidx.lifecycle:lifecycle-process:2.6.2] /Users/kagiso/.gradle/caches/transforms-3/3a9e6a90f5696f87ff8853862369a710/transformed/jetified-lifecycle-process-2.6.2/AndroidManifest.xml:29:13-31:52
+126-->[androidx.lifecycle:lifecycle-process:2.6.2] /Users/kagiso/.gradle/caches/transforms-3/d4ecef01f45dd551c3b0baa003dd6b6d/transformed/jetified-lifecycle-process-2.6.2/AndroidManifest.xml:29:13-31:52
 127                android:name="androidx.lifecycle.ProcessLifecycleInitializer"
-127-->[androidx.lifecycle:lifecycle-process:2.6.2] /Users/kagiso/.gradle/caches/transforms-3/3a9e6a90f5696f87ff8853862369a710/transformed/jetified-lifecycle-process-2.6.2/AndroidManifest.xml:30:17-78
+127-->[androidx.lifecycle:lifecycle-process:2.6.2] /Users/kagiso/.gradle/caches/transforms-3/d4ecef01f45dd551c3b0baa003dd6b6d/transformed/jetified-lifecycle-process-2.6.2/AndroidManifest.xml:30:17-78
 128                android:value="androidx.startup" />
-128-->[androidx.lifecycle:lifecycle-process:2.6.2] /Users/kagiso/.gradle/caches/transforms-3/3a9e6a90f5696f87ff8853862369a710/transformed/jetified-lifecycle-process-2.6.2/AndroidManifest.xml:31:17-49
+128-->[androidx.lifecycle:lifecycle-process:2.6.2] /Users/kagiso/.gradle/caches/transforms-3/d4ecef01f45dd551c3b0baa003dd6b6d/transformed/jetified-lifecycle-process-2.6.2/AndroidManifest.xml:31:17-49
 129            <meta-data
-129-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/kagiso/.gradle/caches/transforms-3/77b04ab641bc809f6845dd10c6b5dd1f/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:29:13-31:52
+129-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/kagiso/.gradle/caches/transforms-3/1e1c32006a156dc0af7c2f003b4f6715/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:29:13-31:52
 130                android:name="androidx.profileinstaller.ProfileInstallerInitializer"
-130-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/kagiso/.gradle/caches/transforms-3/77b04ab641bc809f6845dd10c6b5dd1f/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:30:17-85
+130-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/kagiso/.gradle/caches/transforms-3/1e1c32006a156dc0af7c2f003b4f6715/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:30:17-85
 131                android:value="androidx.startup" />
-131-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/kagiso/.gradle/caches/transforms-3/77b04ab641bc809f6845dd10c6b5dd1f/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:31:17-49
+131-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/kagiso/.gradle/caches/transforms-3/1e1c32006a156dc0af7c2f003b4f6715/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:31:17-49
 132        </provider>
 133
 134        <receiver
-134-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/kagiso/.gradle/caches/transforms-3/77b04ab641bc809f6845dd10c6b5dd1f/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:34:9-52:20
+134-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/kagiso/.gradle/caches/transforms-3/1e1c32006a156dc0af7c2f003b4f6715/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:34:9-52:20
 135            android:name="androidx.profileinstaller.ProfileInstallReceiver"
-135-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/kagiso/.gradle/caches/transforms-3/77b04ab641bc809f6845dd10c6b5dd1f/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:35:13-76
+135-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/kagiso/.gradle/caches/transforms-3/1e1c32006a156dc0af7c2f003b4f6715/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:35:13-76
 136            android:directBootAware="false"
-136-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/kagiso/.gradle/caches/transforms-3/77b04ab641bc809f6845dd10c6b5dd1f/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:36:13-44
+136-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/kagiso/.gradle/caches/transforms-3/1e1c32006a156dc0af7c2f003b4f6715/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:36:13-44
 137            android:enabled="true"
-137-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/kagiso/.gradle/caches/transforms-3/77b04ab641bc809f6845dd10c6b5dd1f/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:37:13-35
+137-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/kagiso/.gradle/caches/transforms-3/1e1c32006a156dc0af7c2f003b4f6715/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:37:13-35
 138            android:exported="true"
-138-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/kagiso/.gradle/caches/transforms-3/77b04ab641bc809f6845dd10c6b5dd1f/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:38:13-36
+138-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/kagiso/.gradle/caches/transforms-3/1e1c32006a156dc0af7c2f003b4f6715/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:38:13-36
 139            android:permission="android.permission.DUMP" >
-139-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/kagiso/.gradle/caches/transforms-3/77b04ab641bc809f6845dd10c6b5dd1f/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:39:13-57
+139-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/kagiso/.gradle/caches/transforms-3/1e1c32006a156dc0af7c2f003b4f6715/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:39:13-57
 140            <intent-filter>
-140-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/kagiso/.gradle/caches/transforms-3/77b04ab641bc809f6845dd10c6b5dd1f/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:40:13-42:29
+140-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/kagiso/.gradle/caches/transforms-3/1e1c32006a156dc0af7c2f003b4f6715/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:40:13-42:29
 141                <action android:name="androidx.profileinstaller.action.INSTALL_PROFILE" />
-141-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/kagiso/.gradle/caches/transforms-3/77b04ab641bc809f6845dd10c6b5dd1f/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:41:17-91
-141-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/kagiso/.gradle/caches/transforms-3/77b04ab641bc809f6845dd10c6b5dd1f/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:41:25-88
+141-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/kagiso/.gradle/caches/transforms-3/1e1c32006a156dc0af7c2f003b4f6715/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:41:17-91
+141-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/kagiso/.gradle/caches/transforms-3/1e1c32006a156dc0af7c2f003b4f6715/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:41:25-88
 142            </intent-filter>
 143            <intent-filter>
-143-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/kagiso/.gradle/caches/transforms-3/77b04ab641bc809f6845dd10c6b5dd1f/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:43:13-45:29
+143-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/kagiso/.gradle/caches/transforms-3/1e1c32006a156dc0af7c2f003b4f6715/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:43:13-45:29
 144                <action android:name="androidx.profileinstaller.action.SKIP_FILE" />
-144-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/kagiso/.gradle/caches/transforms-3/77b04ab641bc809f6845dd10c6b5dd1f/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:44:17-85
-144-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/kagiso/.gradle/caches/transforms-3/77b04ab641bc809f6845dd10c6b5dd1f/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:44:25-82
+144-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/kagiso/.gradle/caches/transforms-3/1e1c32006a156dc0af7c2f003b4f6715/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:44:17-85
+144-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/kagiso/.gradle/caches/transforms-3/1e1c32006a156dc0af7c2f003b4f6715/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:44:25-82
 145            </intent-filter>
 146            <intent-filter>
-146-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/kagiso/.gradle/caches/transforms-3/77b04ab641bc809f6845dd10c6b5dd1f/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:46:13-48:29
+146-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/kagiso/.gradle/caches/transforms-3/1e1c32006a156dc0af7c2f003b4f6715/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:46:13-48:29
 147                <action android:name="androidx.profileinstaller.action.SAVE_PROFILE" />
-147-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/kagiso/.gradle/caches/transforms-3/77b04ab641bc809f6845dd10c6b5dd1f/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:47:17-88
-147-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/kagiso/.gradle/caches/transforms-3/77b04ab641bc809f6845dd10c6b5dd1f/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:47:25-85
+147-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/kagiso/.gradle/caches/transforms-3/1e1c32006a156dc0af7c2f003b4f6715/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:47:17-88
+147-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/kagiso/.gradle/caches/transforms-3/1e1c32006a156dc0af7c2f003b4f6715/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:47:25-85
 148            </intent-filter>
 149            <intent-filter>
-149-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/kagiso/.gradle/caches/transforms-3/77b04ab641bc809f6845dd10c6b5dd1f/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:49:13-51:29
+149-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/kagiso/.gradle/caches/transforms-3/1e1c32006a156dc0af7c2f003b4f6715/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:49:13-51:29
 150                <action android:name="androidx.profileinstaller.action.BENCHMARK_OPERATION" />
-150-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/kagiso/.gradle/caches/transforms-3/77b04ab641bc809f6845dd10c6b5dd1f/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:50:17-95
-150-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/kagiso/.gradle/caches/transforms-3/77b04ab641bc809f6845dd10c6b5dd1f/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:50:25-92
+150-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/kagiso/.gradle/caches/transforms-3/1e1c32006a156dc0af7c2f003b4f6715/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:50:17-95
+150-->[androidx.profileinstaller:profileinstaller:1.3.0] /Users/kagiso/.gradle/caches/transforms-3/1e1c32006a156dc0af7c2f003b4f6715/transformed/jetified-profileinstaller-1.3.0/AndroidManifest.xml:50:25-92
 151            </intent-filter>
 152        </receiver>
 153    </application>

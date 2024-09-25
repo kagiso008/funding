@@ -186,7 +186,7 @@ class UniversityLandingPage extends StatelessWidget {
                     ),
                   ),
                   child: const Text(
-                    'vaal University of technology',
+                    'Vaal University of Technology',
                     style: TextStyle(
                       fontSize: 20,
                       color: Colors.white,
@@ -321,7 +321,7 @@ class UniversityLandingPage extends StatelessWidget {
                     ),
                   ),
                   child: const Text(
-                    'University of zululand',
+                    'University of Zululand',
                     style: TextStyle(
                       fontSize: 20,
                       color: Colors.white,
@@ -348,7 +348,7 @@ class UniversityLandingPage extends StatelessWidget {
                     ),
                   ),
                   child: const Text(
-                    'central University of Technology',
+                    'Central University of Technology',
                     style: TextStyle(
                       fontSize: 20,
                       color: Colors.white,
@@ -402,7 +402,7 @@ class UniversityLandingPage extends StatelessWidget {
                     ),
                   ),
                   child: const Text(
-                    'walter sisulu University',
+                    'Walter Sisulu University',
                     style: TextStyle(
                       fontSize: 20,
                       color: Colors.white,
@@ -456,7 +456,7 @@ class UniversityLandingPage extends StatelessWidget {
                     ),
                   ),
                   child: const Text(
-                    'University of Cape Peninsula University of Technology',
+                    'Cape Peninsula University of Technology',
                     style: TextStyle(
                       fontSize: 20,
                       color: Colors.white,

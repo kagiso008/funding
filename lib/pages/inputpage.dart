@@ -241,23 +241,6 @@ class _EnterMarksPageState extends State<EnterMarksPage> {
               isMarkEnabled: _selectedFirstAdditionalLanguage != 'None',
             ),
             _buildDropdownWithMarkField(
-              subjectLabel: 'Second Additional Language',
-              subjectValue: _selectedSecondAdditionalLanguage,
-              subjectItems: secondAdditionalLanguages,
-              onSubjectChanged: (value) {
-                setState(() {
-                  _selectedSecondAdditionalLanguage = value!;
-                });
-              },
-              markValue: _secondAdditionalLanguageMark,
-              onMarkChanged: (value) {
-                setState(() {
-                  _secondAdditionalLanguageMark = value ?? 0;
-                });
-              },
-              isMarkEnabled: _selectedSecondAdditionalLanguage != 'None',
-            ),
-            _buildDropdownWithMarkField(
               subjectLabel: 'Elective 1',
               subjectValue: _selectedSubject1,
               subjectItems: _availableElectives,
@@ -309,6 +292,24 @@ class _EnterMarksPageState extends State<EnterMarksPage> {
               isMarkEnabled: _selectedSubject3 != 'None',
             ),
             _buildDropdownWithMarkField(
+              subjectLabel: 'Life Orientation',
+              subjectValue: 'Life Orientation',
+              subjectItems: ['Life Orientation'], // Single item as label
+              onSubjectChanged: (value) {
+                // No change required
+              },
+              markValue: _lifeOrientationMark,
+              onMarkChanged: (value) {
+                setState(() {
+                  _lifeOrientationMark = value ?? 0;
+                });
+              },
+              isMarkEnabled: true, // Always enabled
+            ),
+            const SizedBox(height: 20),
+            const Text("extra subjects"),
+            const SizedBox(height: 20),
+            _buildDropdownWithMarkField(
               subjectLabel: 'Elective 4',
               subjectValue: _selectedSubject4,
               subjectItems: _availableElectives,
@@ -326,21 +327,22 @@ class _EnterMarksPageState extends State<EnterMarksPage> {
               isMarkEnabled: _selectedSubject4 != 'None',
             ),
             _buildDropdownWithMarkField(
-              subjectLabel: 'Life Orientation',
-              subjectValue: 'Life Orientation',
-              subjectItems: ['Life Orientation'], // Single item as label
+              subjectLabel: 'Second Additional Language',
+              subjectValue: _selectedSecondAdditionalLanguage,
+              subjectItems: secondAdditionalLanguages,
               onSubjectChanged: (value) {
-                // No change required
-              },
-              markValue: _lifeOrientationMark,
-              onMarkChanged: (value) {
                 setState(() {
-                  _lifeOrientationMark = value ?? 0;
+                  _selectedSecondAdditionalLanguage = value!;
                 });
               },
-              isMarkEnabled: true, // Always enabled
+              markValue: _secondAdditionalLanguageMark,
+              onMarkChanged: (value) {
+                setState(() {
+                  _secondAdditionalLanguageMark = value ?? 0;
+                });
+              },
+              isMarkEnabled: _selectedSecondAdditionalLanguage != 'None',
             ),
-            const SizedBox(height: 20),
             Center(
               child: ElevatedButton(
                 onPressed: () async {

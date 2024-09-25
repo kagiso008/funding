@@ -77,7 +77,6 @@ class Grade12Page extends StatelessWidget {
                 const SizedBox(height: 50),
                 _buildCustomButton(
                   label: 'ACCOUNTING',
-                  icon: Icons.book,
                   color: Colors.teal,
                   onPressed: () {
                     Navigator.pushReplacement(
@@ -90,7 +89,6 @@ class Grade12Page extends StatelessWidget {
                 const SizedBox(height: 50),
                 _buildCustomButton(
                   label: 'AFRIKAANS',
-                  icon: Icons.book,
                   color: Colors.teal,
                   onPressed: () {
                     Navigator.pushReplacement(
@@ -103,7 +101,6 @@ class Grade12Page extends StatelessWidget {
                 const SizedBox(height: 50),
                 _buildCustomButton(
                   label: 'AGRICULTURAL SCIENCE',
-                  icon: Icons.book,
                   color: Colors.teal,
                   onPressed: () {
                     Navigator.pushReplacement(
@@ -117,7 +114,6 @@ class Grade12Page extends StatelessWidget {
                 const SizedBox(height: 50),
                 _buildCustomButton(
                   label: 'AGRICULTURAL MANAGEMENT PRACTICES',
-                  icon: Icons.book,
                   color: Colors.teal,
                   onPressed: () {
                     Navigator.pushReplacement(
@@ -131,7 +127,6 @@ class Grade12Page extends StatelessWidget {
                 const SizedBox(height: 50),
                 _buildCustomButton(
                   label: 'AGRICULTURAL TECHNOLOGY',
-                  icon: Icons.book,
                   color: Colors.teal,
                   onPressed: () {
                     Navigator.pushReplacement(
@@ -145,7 +140,6 @@ class Grade12Page extends StatelessWidget {
                 const SizedBox(height: 50),
                 _buildCustomButton(
                   label: 'BUSINESS STUDIES',
-                  icon: Icons.book,
                   color: Colors.teal,
                   onPressed: () {
                     Navigator.pushReplacement(
@@ -159,7 +153,6 @@ class Grade12Page extends StatelessWidget {
                 const SizedBox(height: 50),
                 _buildCustomButton(
                   label: 'CIVIL TECNOLOGY',
-                  icon: Icons.book,
                   color: Colors.teal,
                   onPressed: () {
                     Navigator.pushReplacement(
@@ -173,7 +166,6 @@ class Grade12Page extends StatelessWidget {
                 const SizedBox(height: 50),
                 _buildCustomButton(
                   label: 'COMPUTER APPLICATIONS TECHNOLOGY',
-                  icon: Icons.book,
                   color: Colors.teal,
                   onPressed: () {
                     Navigator.pushReplacement(
@@ -186,7 +178,6 @@ class Grade12Page extends StatelessWidget {
                 const SizedBox(height: 50),
                 _buildCustomButton(
                   label: 'CONSUMER STUDIES',
-                  icon: Icons.book,
                   color: Colors.teal,
                   onPressed: () {
                     Navigator.pushReplacement(
@@ -200,7 +191,6 @@ class Grade12Page extends StatelessWidget {
                 const SizedBox(height: 50),
                 _buildCustomButton(
                   label: 'DANCE STUDIES',
-                  icon: Icons.book,
                   color: Colors.teal,
                   onPressed: () {
                     Navigator.pushReplacement(
@@ -214,7 +204,6 @@ class Grade12Page extends StatelessWidget {
                 const SizedBox(height: 50),
                 _buildCustomButton(
                   label: 'DESIGN',
-                  icon: Icons.book,
                   color: Colors.teal,
                   onPressed: () {
                     Navigator.pushReplacement(
@@ -227,7 +216,6 @@ class Grade12Page extends StatelessWidget {
                 const SizedBox(height: 50),
                 _buildCustomButton(
                   label: 'DRAMATIC ARTS',
-                  icon: Icons.book,
                   color: Colors.teal,
                   onPressed: () {
                     Navigator.pushReplacement(
@@ -241,7 +229,6 @@ class Grade12Page extends StatelessWidget {
                 const SizedBox(height: 50),
                 _buildCustomButton(
                   label: 'ECONOMICS',
-                  icon: Icons.book,
                   color: Colors.teal,
                   onPressed: () {
                     Navigator.pushReplacement(
@@ -254,7 +241,6 @@ class Grade12Page extends StatelessWidget {
                 const SizedBox(height: 50),
                 _buildCustomButton(
                   label: 'ELECTRICAL TECHNOLOGY',
-                  icon: Icons.book,
                   color: Colors.teal,
                   onPressed: () {
                     Navigator.pushReplacement(
@@ -268,7 +254,6 @@ class Grade12Page extends StatelessWidget {
                 const SizedBox(height: 50),
                 _buildCustomButton(
                   label: 'ENGINEERING GRAPHICS AND DESIGN',
-                  icon: Icons.book,
                   color: Colors.teal,
                   onPressed: () {
                     Navigator.pushReplacement(
@@ -281,7 +266,6 @@ class Grade12Page extends StatelessWidget {
                 const SizedBox(height: 50),
                 _buildCustomButton(
                   label: 'ENGLISH',
-                  icon: Icons.book,
                   color: Colors.teal,
                   onPressed: () {
                     Navigator.pushReplacement(
@@ -294,7 +278,6 @@ class Grade12Page extends StatelessWidget {
                 const SizedBox(height: 50),
                 _buildCustomButton(
                   label: 'GEOGRAPHY',
-                  icon: Icons.book,
                   color: Colors.teal,
                   onPressed: () {
                     Navigator.pushReplacement(
@@ -307,7 +290,6 @@ class Grade12Page extends StatelessWidget {
                 const SizedBox(height: 50),
                 _buildCustomButton(
                   label: 'HISTORY',
-                  icon: Icons.book,
                   color: Colors.teal,
                   onPressed: () {
                     Navigator.pushReplacement(
@@ -320,7 +302,6 @@ class Grade12Page extends StatelessWidget {
                 const SizedBox(height: 50),
                 _buildCustomButton(
                   label: 'HOSPITALITY STUDIES',
-                  icon: Icons.book,
                   color: Colors.teal,
                   onPressed: () {
                     Navigator.pushReplacement(
@@ -334,7 +315,6 @@ class Grade12Page extends StatelessWidget {
                 const SizedBox(height: 50),
                 _buildCustomButton(
                   label: 'INFORMATION TECHNOLOGY',
-                  icon: Icons.book,
                   color: Colors.teal,
                   onPressed: () {
                     Navigator.pushReplacement(
@@ -347,7 +327,6 @@ class Grade12Page extends StatelessWidget {
                 const SizedBox(height: 50),
                 _buildCustomButton(
                   label: 'isiNDEBELE',
-                  icon: Icons.book,
                   color: Colors.teal,
                   onPressed: () {
                     Navigator.pushReplacement(
@@ -360,7 +339,6 @@ class Grade12Page extends StatelessWidget {
                 const SizedBox(height: 50),
                 _buildCustomButton(
                   label: 'isiXHOSA',
-                  icon: Icons.book,
                   color: Colors.teal,
                   onPressed: () {
                     Navigator.pushReplacement(
@@ -373,7 +351,6 @@ class Grade12Page extends StatelessWidget {
                 const SizedBox(height: 50),
                 _buildCustomButton(
                   label: 'isiZULU',
-                  icon: Icons.book,
                   color: Colors.teal,
                   onPressed: () {
                     Navigator.pushReplacement(
@@ -386,7 +363,6 @@ class Grade12Page extends StatelessWidget {
                 const SizedBox(height: 50),
                 _buildCustomButton(
                   label: 'LIFE ORIENTATION',
-                  icon: Icons.book,
                   color: Colors.teal,
                   onPressed: () {
                     Navigator.pushReplacement(
@@ -400,7 +376,6 @@ class Grade12Page extends StatelessWidget {
                 const SizedBox(height: 50),
                 _buildCustomButton(
                   label: 'LIFE SCIENCE',
-                  icon: Icons.book,
                   color: Colors.teal,
                   onPressed: () {
                     Navigator.pushReplacement(
@@ -414,7 +389,6 @@ class Grade12Page extends StatelessWidget {
                 const SizedBox(height: 50),
                 _buildCustomButton(
                   label: 'MARINE SCIENCE',
-                  icon: Icons.book,
                   color: Colors.teal,
                   onPressed: () {
                     Navigator.pushReplacement(
@@ -428,7 +402,6 @@ class Grade12Page extends StatelessWidget {
                 const SizedBox(height: 50),
                 _buildCustomButton(
                   label: 'MATHEMATICAL LITERACY',
-                  icon: Icons.book,
                   color: Colors.teal,
                   onPressed: () {
                     Navigator.pushReplacement(
@@ -442,7 +415,6 @@ class Grade12Page extends StatelessWidget {
                 const SizedBox(height: 50),
                 _buildCustomButton(
                   label: 'MATHEMATICS',
-                  icon: Icons.book,
                   color: Colors.teal,
                   onPressed: () {
                     Navigator.pushReplacement(
@@ -455,7 +427,6 @@ class Grade12Page extends StatelessWidget {
                 const SizedBox(height: 50),
                 _buildCustomButton(
                   label: 'MECHANICAL TECHNOLOGY',
-                  icon: Icons.book,
                   color: Colors.teal,
                   onPressed: () {
                     Navigator.pushReplacement(
@@ -469,7 +440,6 @@ class Grade12Page extends StatelessWidget {
                 const SizedBox(height: 50),
                 _buildCustomButton(
                   label: 'MUSIC',
-                  icon: Icons.book,
                   color: Colors.teal,
                   onPressed: () {
                     Navigator.pushReplacement(
@@ -482,7 +452,6 @@ class Grade12Page extends StatelessWidget {
                 const SizedBox(height: 50),
                 _buildCustomButton(
                   label: 'PHYSICAL SCIENCE',
-                  icon: Icons.book,
                   color: Colors.teal,
                   onPressed: () {
                     Navigator.pushReplacement(
@@ -496,7 +465,6 @@ class Grade12Page extends StatelessWidget {
                 const SizedBox(height: 50),
                 _buildCustomButton(
                   label: 'RELIGION STUDIES',
-                  icon: Icons.book,
                   color: Colors.teal,
                   onPressed: () {
                     Navigator.pushReplacement(
@@ -510,7 +478,6 @@ class Grade12Page extends StatelessWidget {
                 const SizedBox(height: 50),
                 _buildCustomButton(
                   label: 'SEPEDI',
-                  icon: Icons.book,
                   color: Colors.teal,
                   onPressed: () {
                     Navigator.pushReplacement(
@@ -523,7 +490,6 @@ class Grade12Page extends StatelessWidget {
                 const SizedBox(height: 50),
                 _buildCustomButton(
                   label: 'SESOTHO',
-                  icon: Icons.book,
                   color: Colors.teal,
                   onPressed: () {
                     Navigator.pushReplacement(
@@ -536,7 +502,6 @@ class Grade12Page extends StatelessWidget {
                 const SizedBox(height: 50),
                 _buildCustomButton(
                   label: 'SETSWANA',
-                  icon: Icons.book,
                   color: Colors.teal,
                   onPressed: () {
                     Navigator.pushReplacement(
@@ -549,7 +514,6 @@ class Grade12Page extends StatelessWidget {
                 const SizedBox(height: 50),
                 _buildCustomButton(
                   label: 'SISWATI',
-                  icon: Icons.book,
                   color: Colors.teal,
                   onPressed: () {
                     Navigator.pushReplacement(
@@ -562,7 +526,6 @@ class Grade12Page extends StatelessWidget {
                 const SizedBox(height: 50),
                 _buildCustomButton(
                   label: 'SOUTH AFRICAN SIGN LANGUAGE',
-                  icon: Icons.book,
                   color: Colors.teal,
                   onPressed: () {
                     Navigator.pushReplacement(
@@ -575,7 +538,6 @@ class Grade12Page extends StatelessWidget {
                 const SizedBox(height: 50),
                 _buildCustomButton(
                   label: 'TECHNICAL MATHEMATICS',
-                  icon: Icons.book,
                   color: Colors.teal,
                   onPressed: () {
                     Navigator.pushReplacement(
@@ -589,7 +551,6 @@ class Grade12Page extends StatelessWidget {
                 const SizedBox(height: 50),
                 _buildCustomButton(
                   label: 'TECHNICAL SCIENCES',
-                  icon: Icons.book,
                   color: Colors.teal,
                   onPressed: () {
                     Navigator.pushReplacement(
@@ -603,7 +564,6 @@ class Grade12Page extends StatelessWidget {
                 const SizedBox(height: 50),
                 _buildCustomButton(
                   label: 'TOURISM',
-                  icon: Icons.book,
                   color: Colors.teal,
                   onPressed: () {
                     Navigator.pushReplacement(
@@ -616,7 +576,6 @@ class Grade12Page extends StatelessWidget {
                 const SizedBox(height: 50),
                 _buildCustomButton(
                   label: 'TSHIVENDA',
-                  icon: Icons.book,
                   color: Colors.teal,
                   onPressed: () {
                     Navigator.pushReplacement(
@@ -629,7 +588,6 @@ class Grade12Page extends StatelessWidget {
                 const SizedBox(height: 50),
                 _buildCustomButton(
                   label: 'VISUAL ARTS',
-                  icon: Icons.book,
                   color: Colors.teal,
                   onPressed: () {
                     Navigator.pushReplacement(
@@ -642,7 +600,6 @@ class Grade12Page extends StatelessWidget {
                 const SizedBox(height: 50),
                 _buildCustomButton(
                   label: 'XITSONGA',
-                  icon: Icons.book,
                   color: Colors.teal,
                   onPressed: () {
                     Navigator.pushReplacement(
@@ -661,41 +618,44 @@ class Grade12Page extends StatelessWidget {
     );
   }
 
-  // Custom Button Widget
   Widget _buildCustomButton({
     required String label,
-    required IconData icon,
     required Color color,
     required VoidCallback onPressed,
   }) {
-    return ElevatedButton(
-      onPressed: onPressed,
-      style: ElevatedButton.styleFrom(
-        elevation: 10,
-        backgroundColor: color,
-        padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 24),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(16),
+    return SizedBox(
+      width: double
+          .infinity, // Makes the button stretch across the width of the screen
+      height: 60, // Ensures all buttons have the same height
+      child: ElevatedButton(
+        onPressed: onPressed,
+        style: ElevatedButton.styleFrom(
+          elevation: 10,
+          backgroundColor: color,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(16),
+          ),
+          padding:
+              const EdgeInsets.symmetric(horizontal: 24), // Padding for content
         ),
-      ),
-      child: FittedBox(
-        // Wraps the content to adjust based on available space
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Icon(icon, size: 28, color: Colors.white),
-            const SizedBox(width: 10),
-            Text(
-              label,
-              style: const TextStyle(
-                fontSize: 22,
-                color: Colors.white,
-                fontWeight: FontWeight.w600,
-                overflow: TextOverflow.ellipsis, // Handles overflow gracefully
+        child: FittedBox(
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const SizedBox(width: 10),
+              Text(
+                label,
+                style: const TextStyle(
+                  fontSize: 22,
+                  color: Colors.white,
+                  fontWeight: FontWeight.w600,
+                  overflow:
+                      TextOverflow.ellipsis, // Handles overflow gracefully
+                ),
+                maxLines: 1, // Ensures text stays on one line
               ),
-              maxLines: 1, // Ensures text stays on one line
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

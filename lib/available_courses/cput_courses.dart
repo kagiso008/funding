@@ -23,11 +23,11 @@ class _CPUTCoursesPageState extends State<CPUTCoursesPage> {
 
   Future<void> _fetchAvailableCourses(int aps) async {
     try {
-      // Fetch user's marks, levels, and math_type from the user_marks table
+      // Fetch user's marks, levels, and language types from the user_marks table
       final userMarksResponse = await _supabaseClient
           .from('user_marks')
           .select(
-              'math_mark, math_level, math_type, home_language_mark, home_language_level, first_additional_language_mark, first_additional_language_level, subject1, subject1_mark, subject1_level, subject2, subject2_mark, subject2_level, subject3, subject3_mark, subject3_level, subject4, subject4_mark, subject4_level, life_orientation_mark, life_orientation_level')
+              'math_mark, math_level, math_type, home_language_mark, home_language_level, first_additional_language_mark, first_additional_language_level, second_additional_language_mark, second_additional_language_level, subject1, subject1_mark, subject1_level, subject2, subject2_mark, subject2_level, subject3, subject3_mark, subject3_level, subject4, subject4_mark, subject4_level, life_orientation_mark, life_orientation_level, home_language, first_additional_language, second_additional_language')
           .eq('user_id', _supabaseClient.auth.currentUser!.id)
           .single();
 
@@ -37,23 +37,61 @@ class _CPUTCoursesPageState extends State<CPUTCoursesPage> {
       final response = await _supabaseClient
           .from('universities')
           .select(
-              'university_name, qualification, aps, english_hl, english_fal, maths, physical_sciences, life_orientation')
+              'university_name, qualification, aps, english_hl, english_fal, maths, technical_math, physical_sciences, life_orientation')
           .lte('aps', aps); // Filter by APS score
 
       final List<Map<String, dynamic>> qualifiedCourses = [];
 
       for (var university in response) {
-        // Check if the math_type is 'Mathematics' and compare math_level with maths
-        if (userMarks['math_type'] == 'Mathematics' &&
-            (userMarks['math_level'] ?? 0) >= (university['maths'] ?? 0) &&
-            (userMarks['home_language_mark'] ?? 0) >=
-                (university['english_hl'] ?? 0) &&
-            (userMarks['home_language_level'] ?? 0) >=
-                (university['english_hl_level'] ?? 0) &&
-            (userMarks['first_additional_language_mark'] ?? 0) >=
-                (university['english_fal'] ?? 0) &&
-            (userMarks['first_additional_language_level'] ?? 0) >=
-                (university['english_fal_level'] ?? 0) &&
+        bool meetsRequirements = true;
+
+        // Compare based on math_type
+        if (userMarks['math_type'] == 'Mathematics') {
+          if ((userMarks['math_level'] ?? 0) < (university['maths'] ?? 0)) {
+            meetsRequirements = false;
+          }
+        } else if (userMarks['math_type'] == 'Mathematical Literacy') {
+          if ((userMarks['math_level'] ?? 0) < (university['maths_lit'] ?? 0)) {
+            meetsRequirements = false;
+          }
+        } else if (userMarks['math_type'] == 'Technical Mathematics') {
+          if ((userMarks['math_level'] ?? 0) <
+              (university['technical_math'] ?? 0)) {
+            meetsRequirements = false;
+          }
+        }
+
+        // Check English requirements
+        bool hasEnglishHL = userMarks['home_language']
+                ?.toString()
+                .toLowerCase()
+                .contains('english') ??
+            false;
+        bool hasEnglishFAL = userMarks['first_additional_language']
+                ?.toString()
+                .toLowerCase()
+                .contains('english') ??
+            false;
+
+        if (hasEnglishHL) {
+          if ((userMarks['home_language_level'] ?? 0) <
+              (university['english_hl'] ?? 0)) {
+            meetsRequirements = false;
+          }
+        } else {
+          meetsRequirements = false;
+        }
+
+        if (hasEnglishFAL) {
+          if ((userMarks['first_additional_language_level'] ?? 0) <
+              (university['english_fal'] ?? 0)) {
+            meetsRequirements = false;
+          }
+        } else {
+          meetsRequirements = false;
+        }
+        // Continue checking other subjects and marks
+        if (meetsRequirements &&
             (userMarks['subject1_mark'] ?? 0) >=
                 (university[userMarks['subject1']] ?? 0) &&
             (userMarks['subject1_level'] ?? 0) >=

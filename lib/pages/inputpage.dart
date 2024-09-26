@@ -14,7 +14,7 @@ class _EnterMarksPageState extends State<EnterMarksPage> {
   String _selectedMath = mathematics[0];
   String _selectedHomeLanguage = homeLanguages[0];
   String _selectedFirstAdditionalLanguage = firstAdditionalLanguages[0];
-  String _selectedSecondAdditionalLanguage = secondAdditionalLanguages[0];
+  String _selectedSecondAdditionalLanguage = "None";
   String _selectedSubject1 = "None";
   String _selectedSubject2 = "None";
   String _selectedSubject3 = "None";

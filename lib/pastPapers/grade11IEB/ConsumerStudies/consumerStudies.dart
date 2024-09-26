@@ -4,7 +4,6 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:flutter_pdfview/flutter_pdfview.dart';
 import 'package:path_provider/path_provider.dart';
 import 'dart:io';
-import 'package:funding/grades/grade11.dart';
 
 class ConsumerStudiesGrade11Page extends StatefulWidget {
   const ConsumerStudiesGrade11Page({super.key});

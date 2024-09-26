@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:funding/available_courses/cput_courses.dart';
 
 class CalculateApsCPUTPage extends StatefulWidget {
-  const CalculateApsCPUTPage({super.key, required});
+  const CalculateApsCPUTPage({super.key});
 
   @override
   _CalculateApsCPUTPageState createState() => _CalculateApsCPUTPageState();
@@ -182,6 +183,18 @@ class _CalculateApsCPUTPageState extends State<CalculateApsCPUTPage> {
                                   color: Colors.teal,
                                 ),
                               ),
+                              ElevatedButton(
+                                  onPressed: () {
+                                    // Pass the APS score to CPUTCoursesPage
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) =>
+                                            CPUTCoursesPage(aps: aps!),
+                                      ),
+                                    );
+                                  },
+                                  child: const Text("available courses"))
                             ],
                           ),
                         ),

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:funding/pages/account_page.dart';
 import 'package:funding/pages/inputpage.dart';
 import 'package:funding/pages/landing_page.dart';
 import 'package:funding/pages/login_page.dart';

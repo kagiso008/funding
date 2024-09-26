@@ -23,24 +23,39 @@ class _CPUTCoursesPageState extends State<CPUTCoursesPage> {
 
   Future<void> _fetchAvailableCourses(int aps) async {
     try {
-      // Fetch user's marks, levels, and language types from the user_marks table
       final userMarksResponse = await _supabaseClient
           .from('user_marks')
           .select(
-              'math_mark, math_level, math_type, home_language_mark, home_language_level, first_additional_language_mark, first_additional_language_level, second_additional_language_mark, second_additional_language_level, subject1, subject1_mark, subject1_level, subject2, subject2_mark, subject2_level, subject3, subject3_mark, subject3_level, subject4, subject4_mark, subject4_level, life_orientation_mark, life_orientation_level, home_language, first_additional_language, second_additional_language')
+              'math_mark, math_level, math_type, home_language_mark, home_language_level, first_additional_language_mark, first_additional_language_level, second_additional_language_mark, second_additional_language_level, subject1, subject1_level, subject2, subject2_level, subject3, subject3_level, subject4, subject4_level, life_orientation_mark, life_orientation_level, home_language, first_additional_language, second_additional_language')
           .eq('user_id', _supabaseClient.auth.currentUser!.id)
           .single();
 
       final userMarks = userMarksResponse;
 
-      // Query the universities table and check if user's marks and levels match university requirements
       final response = await _supabaseClient
           .from('universities')
           .select(
-              'university_name, qualification, aps, english_hl, english_fal, maths, technical_math, physical_sciences, life_orientation')
-          .lte('aps', aps); // Filter by APS score
+              'university_name, qualification, aps, english_hl, english_fal, maths, technical_math, maths_lit, physical_sciences, life_orientation, accounting, business_studies, economics, history, geography, tourism, civil_technology, egd, cat, it, electrical_technology, mechanical_technology')
+          .lte('aps', aps);
 
       final List<Map<String, dynamic>> qualifiedCourses = [];
+
+      // Mapping user subjects to university columns
+      final subjectMapping = {
+        'Physical Sciences': 'physical_sciences',
+        'Accounting': 'accounting',
+        'Business Studies': 'business_studies',
+        'Economics': 'economics',
+        'History': 'history',
+        'Geography': 'geography',
+        'Tourism': 'tourism',
+        'Civil Technology': 'civil_technology',
+        'Engineering Graphics and Design': 'egd',
+        'Computer Applications Technology': 'cat',
+        'Information Technology': 'it',
+        'Electrical Technology': 'electrical_technology',
+        'Mechanical Technology': 'mechanical_technology',
+      };
 
       for (var university in response) {
         bool meetsRequirements = true;
@@ -78,8 +93,6 @@ class _CPUTCoursesPageState extends State<CPUTCoursesPage> {
               (university['english_hl'] ?? 0)) {
             meetsRequirements = false;
           }
-        } else {
-          meetsRequirements = false;
         }
 
         if (hasEnglishFAL) {
@@ -87,32 +100,24 @@ class _CPUTCoursesPageState extends State<CPUTCoursesPage> {
               (university['english_fal'] ?? 0)) {
             meetsRequirements = false;
           }
-        } else {
-          meetsRequirements = false;
         }
-        // Continue checking other subjects and marks
-        if (meetsRequirements &&
-            (userMarks['subject1_mark'] ?? 0) >=
-                (university[userMarks['subject1']] ?? 0) &&
-            (userMarks['subject1_level'] ?? 0) >=
-                (university['subject1_level'] ?? 0) &&
-            (userMarks['subject2_mark'] ?? 0) >=
-                (university[userMarks['subject2']] ?? 0) &&
-            (userMarks['subject2_level'] ?? 0) >=
-                (university['subject2_level'] ?? 0) &&
-            (userMarks['subject3_mark'] ?? 0) >=
-                (university[userMarks['subject3']] ?? 0) &&
-            (userMarks['subject3_level'] ?? 0) >=
-                (university['subject3_level'] ?? 0) &&
-            (userMarks['subject4_mark'] ?? 0) >=
-                (university[userMarks['subject4']] ?? 0) &&
-            (userMarks['subject4_level'] ?? 0) >=
-                (university['subject4_level'] ?? 0) &&
-            (userMarks['life_orientation_mark'] ?? 0) >=
-                (university['life_orientation'] ?? 0) &&
-            (userMarks['life_orientation_level'] ?? 0) >=
-                (university['life_orientation_level'] ?? 0)) {
-          // If all subject marks and levels meet university requirements, add to the list
+
+        // Compare other subjects (subject1, subject2, etc.)
+        for (int i = 1; i <= 4; i++) {
+          final subject = userMarks['subject$i'];
+          final subjectLevel = userMarks['subject${i}_level'];
+
+          if (subject != null && subjectMapping.containsKey(subject)) {
+            final universitySubject = university[subjectMapping[subject]];
+            if ((subjectLevel ?? 0) < (universitySubject ?? 0)) {
+              meetsRequirements = false;
+              break;
+            }
+          }
+        }
+
+        // If requirements are met, add to the list
+        if (meetsRequirements) {
           qualifiedCourses.add(university);
         }
       }
@@ -125,8 +130,7 @@ class _CPUTCoursesPageState extends State<CPUTCoursesPage> {
       if (availableCourses.isEmpty) {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
-              content:
-                  Text('No courses match your subjects, marks, and levels')),
+              content: Text('No courses match your subjects and levels')),
         );
       }
     } catch (error) {
